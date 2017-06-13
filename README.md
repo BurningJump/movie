@@ -1,4 +1,4 @@
-# my-project
+# movie
 
 > A Vue.js project
 
