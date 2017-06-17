@@ -7,16 +7,21 @@
     	    <mt-tab-item id="2">影评</mt-tab-item>
     	    <mt-tab-item id="2">影人</mt-tab-item>
     	</mt-navbar>
+        <Tabbar></Tabbar>
     </div>
 </template>
 
 <script>
+import Tabbar from './Tabbar';
 export default {
     name: 'hello',
     data () {
         return {
             selected: 1,
         }
+    },
+    components: {
+        Tabbar
     }
 }
 </script>

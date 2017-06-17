@@ -1,62 +1,76 @@
 <template>
     <div>
-        <div class="header">
-            <span @click='selectCity'>{{city}}</span>
-            <mt-search v-model="value">
-                <mt-cell v-for="item in result" :title="item.title" :value="item.value" placeholder="电影/电视剧/影人"></mt-cell>
-            </mt-search>
-        </div>
+        <span @click='selectCity'>{{city}}</span>
+        <mt-search v-model="value">
+            <mt-cell placeholder="电影/电视剧/影人"></mt-cell>
+        </mt-search>
         
         <mt-swipe :auto="2000">
-            <mt-swipe-item>1</mt-swipe-item>
-            <mt-swipe-item>2</mt-swipe-item>
+            <mt-swipe-item><img src="../assets/img/wechat.png" alt=""></mt-swipe-item>
+            <mt-swipe-item><img src="../assets/img/zhifubao.png" alt=""></mt-swipe-item>
         </mt-swipe>
-
+        
         <mt-navbar v-model="selected">
             <mt-tab-item id="1">正在热映</mt-tab-item>
             <mt-tab-item id="2">即将上映</mt-tab-item>
         </mt-navbar>
 
+        <!-- tab-container -->
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <mt-cell v-for="n in 10" :title="'内容 ' + n" />
+                <ul v-for="movie in hotMovies">
+                    <li class="Movies-list">
+                        <router-link to="movie.alt">
+                            <div>
+                            <img :src="movie.images.medium">
+                            <div class="Movies-list-detail">
+                                <p>{{movie.title}}</p>
+                                <p><span>{{movie.rating.average}}</span></p>
+                            </div>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
-                <mt-cell v-for="n in 4" :title="'测试 ' + n" />
+                <ul v-for="movie in comingMovies">
+                    <li class="Movies-list">
+                        <router-link :to="movie.alt">
+                            <div>
+                                <img :src="movie.images.medium">
+                                <div class="Movies-list-detail">
+                                    <p>{{movie.title}}</p>
+                                    <p><span>{{movie.rating.average}}</span></p>
+                                </div>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
             </mt-tab-container-item>
         </mt-tab-container>
-
-        <mt-tabbar v-model="selected" fixed>
-            <mt-tab-item id="1">
-                <img slot="icon" src="">
-                热映
-            </mt-tab-item>
-            <mt-tab-item id="2">
-                <img slot="icon" src="">
-                找片
-            </mt-tab-item>
-            <mt-tab-item id="3">
-                <img slot="icon" src="">
-                我的
-            </mt-tab-item>
-        </mt-tabbar>
+        
+        <Tabbar></Tabbar>
     </div>    
 </template>
 
 <script>
-import { InfiniteScroll, Swipe, SwipeItem, Search, Navbar, Tabbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui';
+import axios from "axios"
+import qs from 'qs'
+import mint from 'mint-ui';
+import Tabbar from './Tabbar';
 export default {
     name: 'hello',
     data () {
         return {
             city: '深圳',
+            value:'',
             selected: 1,
-            result:[],
-            hotMovies:{}
+            hotMovies:[],
+            comingMovies:[]
         }
     },
     mounted(){
-        init()
+        this.init()
     },
     methods: {
         selectCity(){
@@ -64,54 +78,48 @@ export default {
         },
         init(){
             let _this = this
-            // 请求登录接口
-            axios.post('https://api.douban.com/v2/movie/in_theaters',qs.stringify({loginName: _this.phone, password: md5(_this.password)}))
+            // 正在热映
+            axios.get('../../static/list.json')
             .then(function(res){
-                        Indicator.close()
-                        _this.repeatBtn = false
-                        if (res.data.code === '10000') {
-                            window.localStorage.setItem('token', res.data.data.token)
-                            // _this.changeLoginStatus(true)
-                            axios.defaults.headers.common['authorization'] = 'Bearer ' + res.data.data.token
-                            _this.$router.push('/index')
-                        } else {
-                            Toast(res.data.msg)
-                        }
+                _this.hotMovies = res.data.subjects;
+                console.log(_this.hotMovies)
             })
             .catch(function(){
-                        Indicator.close()
-                        _this.repeatBtn = false
-                        Toast('网络请求超时！')
+                mint.Toast('网络请求超时！')
+            });
+            axios.get('../../static/comingSoon.json')
+            .then(function(res){
+                _this.comingMovies = res.data.subjects;
+                console.log(_this.comingMovies)
             })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
         }
     },
     components: {
+        Tabbar
     }
 }
 </script>
 
 <style scoped>
-.header{
-    width: 100%;
-    height: 10%;
-    margin: 0;
-    position: relative;
+.mint-swipe{
+    height: 130px;
 }
-.header span{
-    width: 20%;
-    float: left;
+.mint-search{
+    height: auto;
 }
-.mt-search{
-    width: 80%;
-    height: 10%;
-    float: right;
-    margin: 0;
-    padding: 0;
+.mint-tab-container-wrap{
+    height: 100px;
 }
-.mint-searchbar-inner{
+.Movies-list{
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+}
+.Movies-list-detail{
+    padding: 0 10%;
     margin: 0 auto;
-}
-.mint-searchbar-cancel{
-    margin-left: 10px;
+    float: right;
 }
 </style>
