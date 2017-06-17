@@ -1,11 +1,10 @@
 <template>
     <div>
-    	<mt-header title="多个按钮">
-            <router-link to="/" slot="left">
-                <mt-button icon="back">返回</mt-button>
-                <mt-button @click="handleClose">关闭</mt-button>
+    	<mt-header title="设置">
+            <router-link to="/User" slot="left">
+                <mt-button icon="back"></mt-button>
             </router-link>
-            <mt-button icon="more" slot="right"></mt-button>
+            <!-- <mt-button icon="more" slot="right"></mt-button> -->
         </mt-header>
 
         <mt-cell title="意见反馈" is-link></mt-cell>
