@@ -22,11 +22,12 @@
                     <li class="Movies-list">
                         <router-link to="movie.alt">
                             <div>
-                            <img :src="movie.images.medium">
-                            <div class="Movies-list-detail">
-                                <p>{{movie.title}}</p>
-                                <p><span>{{movie.rating.average}}</span></p>
-                            </div>
+                                <img :src="movie.images.medium">
+                                <div class="Movies-list-detail">
+                                    <p>{{movie.title}}</p>
+                                    <p><span>{{movie.rating.average}}</span></p>
+                                </div>
+                                <mt-button size="small" type="default">购票</mt-button>
                             </div>
                         </router-link>
                     </li>
@@ -113,13 +114,22 @@ export default {
 .mint-tab-container-wrap{
     height: 100px;
 }
+.mt-tab-container-item ul{
+    
+}
 .Movies-list{
     list-style: none;
+    overflow: hidden;
     border-bottom: 1px solid #ccc;
+    vertical-align: middle;
 }
 .Movies-list-detail{
+    width: 50%;
     padding: 0 10%;
     margin: 0 auto;
+    float: right;
+}
+.mint-button{
     float: right;
 }
 </style>
