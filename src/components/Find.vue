@@ -11,25 +11,10 @@
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <ul v-for="movie in hotMovies">
-                    <li class="Movies-list">
-                        <router-link to="movie.alt">
-                            <div>
-                                
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+                
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
-                <ul v-for="movie in comingMovies">
-                    <li class="Movies-list">
-                        <router-link :to="movie.alt">
-                            <div>
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+                
             </mt-tab-container-item>
         </mt-tab-container>
         <Tabbar></Tabbar>
@@ -38,11 +23,31 @@
 
 <script>
 import Tabbar from './Tabbar';
+import axios from "axios"
+import mint from 'mint-ui';
 export default {
     name: 'hello',
     data () {
         return {
-            selected: 1
+            value:'',
+            selected: 1,
+            result:[],
+        }
+    },
+    mounted(){
+        this.init();
+    },
+    methods:{
+        init(){
+            let _this = this;
+            axios.get('user/64249287')
+            .then(function(res){
+                console.log(res.data)
+               
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
         }
     },
     components: {

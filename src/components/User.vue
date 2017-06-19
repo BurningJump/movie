@@ -1,11 +1,10 @@
 <template>
     <div>
         <div class="user-header">
-            <router-link to="/Setting" tag="li">
-                <img src="../assets/img/set.png">
-                <i class="iconfont">&#xe606;</i>
+            <router-link to="/Setting">
+                <img class="set" src="../assets/img/set.png">
             </router-link>
-            <img :src="user.avatar">
+            <img class="avatar" :src="user.avatar">
             <p>{{user.name}}</p>
             <router-link to="">我的电影票</router-link>
         </div>
@@ -29,7 +28,7 @@ export default {
     data () {
         return {
             user: {},
-            selected: 1,
+            selected: '1',
         }
     },
     mounted(){
@@ -57,5 +56,15 @@ export default {
 </script>
 
 <style scoped>
-
+a{
+    text-decoration: none;
+}
+.user-header .set{
+    width: 10%;
+    float: right;
+}
+.avatar{
+    width: 20%;
+   border-radius: 50%; 
+}
 </style>

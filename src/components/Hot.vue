@@ -1,21 +1,20 @@
 <template>
-    <div>
-        <span @click='selectCity'>{{city}}</span>
-        <mt-search v-model="value">
-            <mt-cell placeholder="电影/电视剧/影人"></mt-cell>
-        </mt-search>
-        
+    <div class="box">
+        <div class="header">
+            <span @click='selectCity'>{{city}}</span>
+            <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><input type="text" name="search" placeholder="电影/电视剧/影人"></div>
+        </div>
         <mt-swipe :auto="2000">
-            <mt-swipe-item><img src="../assets/img/wechat.png" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../assets/img/zhifubao.png" alt=""></mt-swipe-item>
+            <mt-swipe-item id="swipe1"><img src="" alt=""><h1>red</h1></mt-swipe-item>
+            <mt-swipe-item id="swipe2"><img src="" alt=""><h1>blue</h1></mt-swipe-item>
+            <mt-swipe-item id="swipe3"><img src="" alt=""><h1>green</h1></mt-swipe-item>
         </mt-swipe>
         
         <mt-navbar v-model="selected">
-            <mt-tab-item id="1">正在热映</mt-tab-item>
-            <mt-tab-item id="2">即将上映</mt-tab-item>
+            <mt-tab-item id='1'>正在热映</mt-tab-item>
+            <mt-tab-item id='2'>即将上映</mt-tab-item>
         </mt-navbar>
 
-        <!-- tab-container -->
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
                 <ul v-for="movie in hotMovies">
@@ -26,8 +25,8 @@
                                 <div class="Movies-list-detail">
                                     <p>{{movie.title}}</p>
                                     <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
-                                    <p>导演：{{movie.directors[0].name}}</p>
-                                    <p>主演：<span v-for='item in movie.casts'>{{item.name}}/</span></p>
+                                    <p>导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                    <p>主演：<span v-for='cast in movie.casts'>{{cast.name}}/</span></p>
                                     <p><span>{{movie.collect_count}}人看过</span></p>
                                 </div>
                                 <mt-button size="small" type="default">购票</mt-button>
@@ -46,10 +45,11 @@
                                     <p>{{movie.title}}</p>
 
                                     <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
-                                    <p>导演：{{movie.directors[0].name}}</p>
-                                    <p>主演：<span v-for='item in movie.casts'>{{item.name}}/</span></p>
-                                    <p><span>{{movie.collect_count}}人看过</span></p>
+                                    <p>导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                    <p>主演：<span v-for='cast in movie.casts'>{{cast.name}}/</span></p>
+                                    <p><span>{{movie.wish_count}}人想看</span></p>
                                 </div>
+                                <mt-button size="small" type="default">想看</mt-button>
                             </div>
                         </router-link>
                     </li>
@@ -72,7 +72,7 @@ export default {
         return {
             city: '深圳',
             value:'',
-            selected: 1,
+            selected: '1',
             hotMovies:[],
             comingMovies:[]
         }
@@ -111,11 +111,53 @@ export default {
 </script>
 
 <style scoped>
-.mint-swipe{
-    height: 130px;
+.box{
+    vertical-align: middle;
 }
-.mint-search{
-    height: auto;
+.header{
+    
+}
+.header span{
+    float: left;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+.search-box{
+    background-color: #fff;
+    width: 80%;
+    margin-left: 40px;
+}
+.search-box img{
+    vertical-align: middle;
+}
+.search-box input{
+    background-color: #ccc;
+    width: 90%;
+    height: 24px;
+    border-radius: 5px;
+    border-style: none;
+}
+.mint-swipe{
+    margin: 0 auto;
+    height: 150px;
+}
+#swipe1{
+    background-color: red;
+}
+#swipe2{
+    background-color: blue;
+}
+#swipe3{
+    background-color: green;
+}
+.mint-navbar{
+    border-bottom: 1px solid #ccc;
+    color: #ccc;
+}
+.mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 2px solid #000;
+    color: #000;
+    margin-bottom: -1px;
 }
 .mint-tab-container-wrap{
     height: 100px;
