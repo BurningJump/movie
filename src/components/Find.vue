@@ -7,6 +7,31 @@
     	    <mt-tab-item id="1">电影</mt-tab-item>
     	    <mt-tab-item id="2">电视剧</mt-tab-item>
     	</mt-navbar>
+
+        <!-- tab-container -->
+        <mt-tab-container v-model="selected">
+            <mt-tab-container-item id="1">
+                <ul v-for="movie in hotMovies">
+                    <li class="Movies-list">
+                        <router-link to="movie.alt">
+                            <div>
+                                
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="2">
+                <ul v-for="movie in comingMovies">
+                    <li class="Movies-list">
+                        <router-link :to="movie.alt">
+                            <div>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
+            </mt-tab-container-item>
+        </mt-tab-container>
         <Tabbar></Tabbar>
     </div>
 </template>

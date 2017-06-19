@@ -25,7 +25,10 @@
                                 <img :src="movie.images.medium">
                                 <div class="Movies-list-detail">
                                     <p>{{movie.title}}</p>
-                                    <p><span>{{movie.rating.average}}</span></p>
+                                    <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
+                                    <p>导演：{{movie.directors[0].name}}</p>
+                                    <p>主演：<span v-for='item in movie.casts'>{{item.name}}/</span></p>
+                                    <p><span>{{movie.collect_count}}人看过</span></p>
                                 </div>
                                 <mt-button size="small" type="default">购票</mt-button>
                             </div>
@@ -41,7 +44,11 @@
                                 <img :src="movie.images.medium">
                                 <div class="Movies-list-detail">
                                     <p>{{movie.title}}</p>
-                                    <p><span>{{movie.rating.average}}</span></p>
+
+                                    <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
+                                    <p>导演：{{movie.directors[0].name}}</p>
+                                    <p>主演：<span v-for='item in movie.casts'>{{item.name}}/</span></p>
+                                    <p><span>{{movie.collect_count}}人看过</span></p>
                                 </div>
                             </div>
                         </router-link>
@@ -80,18 +87,17 @@ export default {
         init(){
             let _this = this
             // 正在热映
-            axios.get('../../static/list.json')
+            axios.get('movie/in_theaters')
             .then(function(res){
                 _this.hotMovies = res.data.subjects;
-                console.log(_this.hotMovies)
+                console.log(_this.hotMovies.subjects.directors.name)
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
-            axios.get('../../static/comingSoon.json')
+            axios.get('movie/coming_soon')
             .then(function(res){
                 _this.comingMovies = res.data.subjects;
-                console.log(_this.comingMovies)
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
@@ -128,6 +134,14 @@ export default {
     padding: 0 10%;
     margin: 0 auto;
     float: right;
+}
+.Movies-list-detail .rating-star{
+    display: inline-block;
+    width: 55px;
+    height: 11px;
+    background-size: cover;
+    background-position-x: 0;
+    background: url(../assets/img/ic_rating_s@2x.png) no-repeat;
 }
 .mint-button{
     float: right;

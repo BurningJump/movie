@@ -5,8 +5,8 @@
                 <img src="../assets/img/set.png">
                 <i class="iconfont">&#xe606;</i>
             </router-link>
-            <img src="../assets/img/boy.png">
-            <p>{{userId}}</p>
+            <img :src="user.avatar">
+            <p>{{user.name}}</p>
             <router-link to="">我的电影票</router-link>
         </div>
     	<mt-navbar v-model="selected">
@@ -22,12 +22,32 @@
 
 <script>
 import Tabbar from './Tabbar';
+import axios from "axios"
+import mint from 'mint-ui';
 export default {
     name: 'hello',
     data () {
         return {
-            userId: 'Tom',
+            user: {},
             selected: 1,
+        }
+    },
+    mounted(){
+        this.init();
+    },
+    methods:{
+        //user/64249287
+
+        init(){
+            let _this = this;
+            axios.get('user/64249287')
+            .then(function(res){
+                console.log(res.data)
+                _this.user = res.data;
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
         }
     },
     components: {
