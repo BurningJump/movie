@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="header">
-            <span @click='selectCity'>{{city}}</span>
+            <span @click='selectCity'>{{city}}<img src="../assets/img/grayDown@2x.png" alt=""></span>
             <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><input type="text" name="search" placeholder="电影/电视剧/影人"></div>
         </div>
         <mt-swipe :auto="2000">
@@ -120,6 +120,11 @@ export default {
 .header span{
     float: left;
     margin: 0 auto;
+    vertical-align: middle;
+}
+.header span img{
+    max-height: 25px;
+    max-width: 25px;
     vertical-align: middle;
 }
 .search-box{
