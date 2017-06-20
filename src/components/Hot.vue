@@ -17,43 +17,46 @@
 
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <ul v-for="movie in hotMovies">
-                    <li class="Movies-list">
-                        <router-link to="movie.alt">
-                            <div>
-                                <img :src="movie.images.medium">
-                                <div class="Movies-list-detail">
-                                    <p>{{movie.title}}</p>
-                                    <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
-                                    <p>导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
-                                    <p>主演：<span v-for='cast in movie.casts'>{{cast.name}}/</span></p>
-                                    <p><span>{{movie.collect_count}}人看过</span></p>
+                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <ul>
+                        <li v-for="movie in hotMovies">
+                            <router-link to="movie.alt">
+                                <div>
+                                    <img :src="movie.images.small">
+                                    <div class="Movies-list-detail">
+                                        <h1>{{movie.title}}</h1>
+                                        <p><span class="rating-star"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                        <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
+                                        <p class="count"><span>{{movie.collect_count}}人看过</span></p>
+                                    </div>
+                                    <button>购票</button>
                                 </div>
-                                <mt-button size="small" type="default">购票</mt-button>
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+                            </router-link>
+                        </li>
+                    </ul>
+                </mt-loadmore>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
-                <ul v-for="movie in comingMovies">
-                    <li class="Movies-list">
-                        <router-link :to="movie.alt">
-                            <div>
-                                <img :src="movie.images.medium">
-                                <div class="Movies-list-detail">
-                                    <p>{{movie.title}}</p>
-
-                                    <p><span class="rating-star"></span><span class="rating-score">{{movie.rating.average}}</span></p>
-                                    <p>导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
-                                    <p>主演：<span v-for='cast in movie.casts'>{{cast.name}}/</span></p>
-                                    <p><span>{{movie.wish_count}}人想看</span></p>
+                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <ul>
+                        <li v-for="movie in comingMovies">
+                            <router-link :to="movie.alt">
+                                <div>
+                                    <img :src="movie.images.small">
+                                    <div class="Movies-list-detail">
+                                        <p>{{movie.title}}</p>
+                                        <p><span class="rating-star"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                        <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
+                                        <p class="count"><span>{{movie.wish_count}}人想看</span></p>
+                                    </div>
+                                    <button>想看</button>
                                 </div>
-                                <mt-button size="small" type="default">想看</mt-button>
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+                            </router-link>
+                        </li>
+                    </ul>
+                </mt-loadmore>
             </mt-tab-container-item>
         </mt-tab-container>
         
@@ -74,7 +77,8 @@ export default {
             value:'',
             selected: '1',
             hotMovies:[],
-            comingMovies:[]
+            comingMovies:[],
+            allLoaded: false
         }
     },
     mounted(){
@@ -90,7 +94,6 @@ export default {
             axios.get('movie/in_theaters')
             .then(function(res){
                 _this.hotMovies = res.data.subjects;
-                console.log(_this.hotMovies.subjects.directors.name)
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
@@ -102,6 +105,15 @@ export default {
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
+        },
+        loadTop() {
+            // 加载更多数据
+            this.$refs.loadmore.onTopLoaded();
+        },
+        loadBottom() {
+            // 加载更多数据
+            this.allLoaded = true;// 若数据已全部获取完毕
+            this.$refs.loadmore.onBottomLoaded();
         }
     },
     components: {
@@ -115,25 +127,33 @@ export default {
     vertical-align: middle;
 }
 .header{
-    
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    background-color: #fff;
 }
 .header span{
     float: left;
-    margin: 0 auto;
+    margin: 1px 1px 2% 2%;
     vertical-align: middle;
 }
 .header span img{
     max-height: 25px;
     max-width: 25px;
+    margin: 1px;
     vertical-align: middle;
 }
 .search-box{
-    background-color: #fff;
-    width: 80%;
-    margin-left: 40px;
+    background-color: #ccc;
+    width: 83%;
+    margin: 2% 2% 2% 55px;
+    border-radius: 5px;
 }
 .search-box img{
     vertical-align: middle;
+    max-width: 70%;
+    max-height: 70%;
 }
 .search-box input{
     background-color: #ccc;
@@ -144,7 +164,9 @@ export default {
 }
 .mint-swipe{
     margin: 0 auto;
-    height: 150px;
+    height: 110px;
+    width: 100%;
+    margin-top: 13%;
 }
 #swipe1{
     background-color: red;
@@ -155,32 +177,44 @@ export default {
 #swipe3{
     background-color: green;
 }
+li{
+    border-bottom: 1px solid #ccc;
+}
 .mint-navbar{
     border-bottom: 1px solid #ccc;
     color: #ccc;
+    z-index: 2;
 }
-.mint-navbar .mint-tab-item.is-selected {
+.mint-navbar .mint-tab-item.is-selected{
     border-bottom: 2px solid #000;
     color: #000;
     margin-bottom: -1px;
 }
-.mint-tab-container-wrap{
-    height: 100px;
-}
-.mt-tab-container-item ul{
-    
-}
-.Movies-list{
-    list-style: none;
-    overflow: hidden;
-    border-bottom: 1px solid #ccc;
-    vertical-align: middle;
+.mint-tab-container-item img{
+    float: left;
+    margin: 0 5%;
 }
 .Movies-list-detail{
-    width: 50%;
-    padding: 0 10%;
-    margin: 0 auto;
-    float: right;
+    width: 38%;
+    margin: 6% 30%;
+}
+.Movies-list-detail h1{
+    color: #000;
+    font-size: 14px;
+    font-family:Arial;
+}
+.rating-score{
+    color: #ccc;
+    font-size: 12px;
+}
+.director{
+    color: #ccc;
+}
+.cast{
+    color: #ccc;
+    height: 32px;
+    overflow: hidden;
+    margin-bottom: 3%;
 }
 .Movies-list-detail .rating-star{
     display: inline-block;
@@ -190,7 +224,16 @@ export default {
     background-position-x: 0;
     background: url(../assets/img/ic_rating_s@2x.png) no-repeat;
 }
-.mint-button{
+.count{
+    color: orange;
+}
+button{
+    border-radius: 3px;
+    width: 17%;
+    height: 24px;
+    background-color: #fff;
+    border: 1px solid red;
     float: right;
+    margin: -25% 5%;
 }
 </style>

@@ -65,6 +65,6 @@ a{
 }
 .avatar{
     width: 20%;
-   border-radius: 50%; 
+    border-radius: 50%; 
 }
 </style>

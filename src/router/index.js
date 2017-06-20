@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+	linkActiveClass: 'activeRouter',
   	routes: [
   		{ path: '/City', name: 'City', component: r => require.ensure([], () => r(require('./../components/City')), 'City')},
   		{ path: '/Find', name: 'Find', component: r => require.ensure([], () => r(require('./../components/Find')), 'Find')},
