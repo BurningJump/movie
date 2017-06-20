@@ -49,37 +49,50 @@
                 <div>
                     
                 </div>
+                <div class="pick">
+                    <h2>选电影</h2>
+                    <li>
+                        <router-link to="/">经典</router-link>
+                        <router-link to="/">豆瓣高分</router-link>
+                        <router-link to="/">冷门佳片</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/">剧情</router-link>
+                        <router-link to="/">爱情</router-link>
+                        <router-link to="/">喜剧</router-link>
+                        <router-link to="/">科幻</router-link>
+                        <router-link to="/">动作</router-link>
+                        <router-link to="/">悬疑</router-link>
+                        <router-link to="/">治愈</router-link>
+                        <router-link to="/">青春</router-link>
+                        <router-link to="/">文艺</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/">日本</router-link>
+                        <router-link to="/">韩国</router-link>
+                    </li> 
+                </div>
             </mt-tab-container-item>
 
             <mt-tab-container-item id="2">
                 <div>
                     <p>今日更新<span>更多<img src="" alt=""></span></p>
                 </div>
+                <div class="pick">
+                    <h2>选电视剧</h2>
+                    <li>
+                        <router-link to="/">美剧</router-link>
+                        <router-link to="/">英剧</router-link>
+                        <router-link to="/">韩剧</router-link>
+                        <router-link to="/">港剧</router-link>
+                        <router-link to="/">日剧</router-link>
+                        <router-link to="/">动画</router-link>
+                        <router-link to="/">综艺</router-link>
+                        <router-link to="/">国产剧</router-link>
+                    </li>
+                </div>
             </mt-tab-container-item>
         </mt-tab-container>
-        <div class="pick">
-            <h2>选电影</h2>
-            <li>
-                <router-link to="/">经典</router-link>
-                <router-link to="/">豆瓣高分</router-link>
-                <router-link to="/">冷门佳片</router-link>
-            </li>
-            <li>
-                <router-link to="/">剧情</router-link>
-                <router-link to="/">爱情</router-link>
-                <router-link to="/">喜剧</router-link>
-                <router-link to="/">科幻</router-link>
-                <router-link to="/">动作</router-link>
-                <router-link to="/">悬疑</router-link>
-                <router-link to="/">治愈</router-link>
-                <router-link to="/">青春</router-link>
-                <router-link to="/">文艺</router-link>
-            </li>
-            <li>
-                <router-link to="/">日本</router-link>
-                <router-link to="/">韩国</router-link>
-            </li> 
-        </div>
         <Tabbar></Tabbar>
     </div>
 </template>
@@ -123,7 +136,7 @@ export default {
     height: auto;
 }
 .mint-tab-container{
-    height: 200px;
+    height: auto;
 }
 .list-box{
     overflow: hidden;
