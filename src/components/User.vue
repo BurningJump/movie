@@ -15,6 +15,29 @@
     	    <mt-tab-item id="4">影评</mt-tab-item>
     	    <mt-tab-item id="5">影人</mt-tab-item>
     	</mt-navbar>
+
+        <mt-tab-container v-model="selected">
+            <mt-tab-container-item id="1">
+                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <ul>
+                        <p>{{movie.wish_count}}部</p><span @click="">标签筛选</span>
+                        <li v-for="movie in user">
+                            {{movie.wish_count}}
+                        </li>
+                    </ul>
+                </mt-loadmore>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="2">
+                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <ul>
+                        <li v-for="movie in comingMovies">
+                            
+                        </li>
+                    </ul>
+                </mt-loadmore>
+            </mt-tab-container-item>
+        </mt-tab-container>
+
         <Tabbar></Tabbar>
     </div>
 </template>
@@ -36,6 +59,7 @@ export default {
     },
     methods:{
         //user/64249287
+        // /v2/movie/subject/:id
 
         init(){
             let _this = this;
@@ -47,6 +71,16 @@ export default {
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
+        },
+        wish(){
+           let _this = this;
+           axios.get('movie/subject/64249287')
+           .then(function(res){
+               _this.user = res.data;
+           })
+           .catch(function(){
+               mint.Toast('网络请求超时！')
+           }); 
         }
     },
     components: {

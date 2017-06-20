@@ -30,7 +30,7 @@
                                         <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
                                         <p class="count"><span>{{movie.collect_count}}人看过</span></p>
                                     </div>
-                                    <button>购票</button>
+                                    <button class="buy">购票</button>
                                 </div>
                             </router-link>
                         </li>
@@ -49,9 +49,9 @@
                                         <p><span class="rating-star"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
                                         <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
                                         <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
-                                        <p class="count"><span>{{movie.wish_count}}人想看</span></p>
+                                        <p class="count"><span>{{movie.collect_count}}人看过</span></p>
                                     </div>
-                                    <button>想看</button>
+                                    <button class="wish">想看</button>
                                 </div>
                             </router-link>
                         </li>
@@ -82,7 +82,8 @@ export default {
         }
     },
     mounted(){
-        this.init()
+        this.init();
+        // this.wish();
     },
     methods: {
         selectCity(){
@@ -106,6 +107,19 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
+        // wish(){
+        //    let _this = this;
+        //    var len = _this.comingMovies.length;
+        //    for(var i = 0; i < len; i++){
+        //         axios.get('movie/subject/'+_this.comingMovies[i].id)
+        //         .then(function(res){
+        //             _this.comingMovies[i].wish_count = res.data.rating.numRaters;
+        //         })
+        //         .catch(function(){
+        //             mint.Toast('网络请求超时！')
+        //         }); 
+        //    }
+        // },
         loadTop() {
             // 加载更多数据
             this.$refs.loadmore.onTopLoaded();
@@ -135,7 +149,7 @@ export default {
 }
 .header span{
     float: left;
-    margin: 1px 1px 2% 2%;
+    margin: 2% 1px 2% 2%;
     vertical-align: middle;
 }
 .header span img{
@@ -146,7 +160,7 @@ export default {
 }
 .search-box{
     background-color: #ccc;
-    width: 83%;
+    width: 78%;
     margin: 2% 2% 2% 55px;
     border-radius: 5px;
 }
@@ -227,12 +241,23 @@ li{
 .count{
     color: orange;
 }
-button{
+.buy{
     border-radius: 3px;
     width: 17%;
     height: 24px;
+    color: red;
     background-color: #fff;
     border: 1px solid red;
+    float: right;
+    margin: -25% 5%;
+}
+.wish{
+    border-radius: 3px;
+    width: 17%;
+    height: 24px;
+    color: orange;
+    background-color: #fff;
+    border: 1px solid orange;
     float: right;
     margin: -25% 5%;
 }
