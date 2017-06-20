@@ -57,6 +57,29 @@
                 </div>
             </mt-tab-container-item>
         </mt-tab-container>
+        <div class="pick">
+            <h2>选电影</h2>
+            <li>
+                <router-link to="/">经典</router-link>
+                <router-link to="/">豆瓣高分</router-link>
+                <router-link to="/">冷门佳片</router-link>
+            </li>
+            <li>
+                <router-link to="/">剧情</router-link>
+                <router-link to="/">爱情</router-link>
+                <router-link to="/">喜剧</router-link>
+                <router-link to="/">科幻</router-link>
+                <router-link to="/">动作</router-link>
+                <router-link to="/">悬疑</router-link>
+                <router-link to="/">治愈</router-link>
+                <router-link to="/">青春</router-link>
+                <router-link to="/">文艺</router-link>
+            </li>
+            <li>
+                <router-link to="/">日本</router-link>
+                <router-link to="/">韩国</router-link>
+            </li> 
+        </div>
         <Tabbar></Tabbar>
     </div>
 </template>
@@ -125,5 +148,19 @@ export default {
 }
 #highest-grossing{
     background: linear-gradient(to top, rgba(173,106,106,0.1), rgba(173,106,106,1));
+}
+
+
+
+.pick li{
+    border-bottom: 1px solid #ccc;
+}
+.pick a{
+    color: green;
+    border: 1px solid green;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 4% 2% 4% 7%;
+    padding: 1% 3% 1% 3%;
 }
 </style>

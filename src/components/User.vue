@@ -20,9 +20,9 @@
             <mt-tab-container-item id="1">
                 <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
                     <ul>
-                        <p>{{movie.wish_count}}部</p><span @click="">标签筛选</span>
+                        <p>{{}}部</p><span @click="">标签筛选</span>
                         <li v-for="movie in user">
-                            {{movie.wish_count}}
+                            {{}}
                         </li>
                     </ul>
                 </mt-loadmore>
