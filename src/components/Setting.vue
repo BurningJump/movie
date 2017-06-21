@@ -7,11 +7,11 @@
             <!-- <mt-button icon="more" slot="right"></mt-button> -->
         </mt-header>
 
-        <mt-cell title="意见反馈" is-link></mt-cell>
+        <mt-cell style="border-top:1px solid #ccc;" title="意见反馈" is-link></mt-cell>
         <mt-cell title="给应用评分" is-link></mt-cell>
         <mt-cell title="清除缓存" is-link @click='wipe'><span style="color: green">{{cache}}</span></mt-cell>
         <mt-cell title="关于" is-link></mt-cell>
-        <mt-button type="default" size="large" @click.native="logout">退出登录</mt-button>
+        <mt-button class="logout" type="default" size="large" @click.native="logout">退出登录</mt-button>
     </div>
 </template>
 
@@ -42,9 +42,17 @@ export default {
     background-color: #fff;
     color: #000;
     border-bottom: 1px solid #ccc;
+    margin-bottom: 8%;
 }
 .mint-cell{
     border-bottom: 1px solid #ccc;
     min-height:24px;
+}
+.logout{
+    background-color: #fff;
+    margin-top: 8%;
+    color: #000;
+    border-radius: inherit;
+    width: 100%;
 }
 </style>

@@ -12,43 +12,68 @@
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <div>
+                <div class="ranking-list">
+                    <h2>精选榜单</h2>
                     <ul class="list-box">
-                        <p>精选榜单</p>
                         <li class="list" id="top250">
-                            <h3>豆瓣Top250</h3>
-                            <h6>8分以上好电影</h6>
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
+                            <router-link to="/Top250">
+                                <h2>豆瓣Top250</h2>
+                                <p>8分以上好电影</p>
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                            </router-link>
                         </li>
-                        <li class="list" id="week-top">
-                            <h3>本周口碑榜</h3>
-                            <h6>6月13日 - 6月20日</h6>
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
+                        <li class="list" id="weekly">
+                            <router-link to="/Weekly">
+                                <h2>本周口碑榜</h2>
+                                <p>6月13日 - 6月20日</p>
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                            </router-link>
                         </li>
-                        <li class="list" id="latest">
-                            <h3>新片榜</h3>
-                            <h6>6月13日 - 6月20日</h6>
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
+                        <li class="list" id="new-movies">
+                            <router-link to="/NewMovies">
+                                <h2>新片榜</h2>
+                                <p>6月13日 - 6月20日</p>
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                            </router-link>
                         </li>
-                        <li class="list" id="highest-grossing">
-                            <h3>票房榜</h3>
-                            <h6>票房最高排名</h6>
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
+                        <li class="list" id="usbox">
+                            <router-link to="/USbox">
+                                <h2>票房榜</h2>
+                                <p>票房最高排名</p>
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                            </router-link>
                         </li>
                     </ul>
                 </div>
 
-                <div>
+                <div class="box rushi">
                     
                 </div>
+
+                <div class="box interview">
+                    
+                </div>
+
+                <div class="box collect">
+                    
+                </div>
+
+                <div class="interested">
+                    
+                </div>
+
+                <div class="review">
+                    
+                </div>
+
                 <div class="pick">
                     <h2>选电影</h2>
                     <li>
@@ -138,33 +163,75 @@ export default {
 .mint-tab-container{
     height: auto;
 }
+.ranking-list{
+    color: #fff;
+    background-color: #fff;
+    width: auto;
+    height: auto;
+    overflow: scroll;
+    margin: 5% 0 5% 0%;
+}
+::-webkit-scrollbar{width:0px}
+h2{
+    position: absolute;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    margin-left: 4%;
+}
 .list-box{
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
-    width: 650px;
+    width: 210%;
+    margin-top: 5%;
 }
 .list{
     width: 150px;
     height: 150px;
     float: left;
-    margin: 2px 2px;
+    margin: 2% 0% 2% 2%;
     border-radius: 5px;
+}
+.list a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.list h2{
+    text-align: center;
+    font-size: 2rem;
+    padding: 2rem 0;
+}
+.list p{
+
 }
 #top250{
     background: linear-gradient(to top, rgba(0,181,29,0.1), rgba(0,181,29,1));
 }
-#week-top{
+#weekly{
     background: linear-gradient(to top, rgba(212,195,149,0.1), rgba(212,195,149,1));
 }
-#latest{
+#new-movies{
     background: linear-gradient(to top, rgba(93,124,248,0.1), rgba(93,124,248,1));
 }
-#highest-grossing{
+#usbox{
     background: linear-gradient(to top, rgba(173,106,106,0.1), rgba(173,106,106,1));
 }
+.box{
+    background-color: #fff;
+    height: auto;
+    margin: 5% 0% 5% 0%;
+}
 
-
-
+.pick{
+    height: auto;
+    background-color: #fff;
+    padding-top: 10%;
+    margin-bottom: 15%;
+}
+.pick h2{
+    margin: -7% 0% 0% 4%;
+}
 .pick li{
     border-bottom: 1px solid #ccc;
 }
@@ -173,7 +240,7 @@ export default {
     border: 1px solid green;
     border-radius: 10px;
     display: inline-block;
-    margin: 4% 2% 4% 7%;
+    margin: 4% 2% 4% 4%;
     padding: 1% 3% 1% 3%;
 }
 </style>

@@ -5,8 +5,10 @@
                 <img class="set" src="../assets/img/set.png">
             </router-link>
             <img class="avatar" :src="user.avatar">
-            <p>{{user.name}}</p>
-            <router-link to="">我的电影票</router-link>
+            <div class="detail">
+                <p>{{user.name}}</p>
+                <router-link to="">我的电影票</router-link>
+            </div>
         </div>
     	<mt-navbar v-model="selected">
     	    <mt-tab-item id="1">想看</mt-tab-item>
@@ -20,9 +22,9 @@
             <mt-tab-container-item id="1">
                 <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
                     <ul>
-                        <p>{{}}部</p><span @click="">标签筛选</span>
+                        <p><span>{{wish_count}}部</span><span @click="">标签筛选</span></p>
                         <li v-for="movie in user">
-                            {{}}
+                            
                         </li>
                     </ul>
                 </mt-loadmore>
@@ -52,6 +54,9 @@ export default {
         return {
             user: {},
             selected: '1',
+            wish_count: 122,
+            allLoaded: false,
+            comingMovies:[]
         }
     },
     mounted(){
@@ -65,7 +70,6 @@ export default {
             let _this = this;
             axios.get('user/64249287')
             .then(function(res){
-                console.log(res.data)
                 _this.user = res.data;
             })
             .catch(function(){
@@ -81,6 +85,15 @@ export default {
            .catch(function(){
                mint.Toast('网络请求超时！')
            }); 
+        },
+        loadTop() {
+            // 加载更多数据
+            this.$refs.loadmore.onTopLoaded();
+        },
+        loadBottom() {
+            // 加载更多数据
+            this.allLoaded = true;// 若数据已全部获取完毕
+            this.$refs.loadmore.onBottomLoaded();
         }
     },
     components: {
@@ -93,12 +106,43 @@ export default {
 a{
     text-decoration: none;
 }
+.user-header{
+    background-color: green;
+    padding-bottom: 5%;
+}
+.detail{
+    width: 55%;
+    margin: -6% 0% 0% 32%;
+    color: #fff;
+}
+.detail p{
+    border-bottom: 1px solid #fff;
+    font-size: 2rem;
+    padding-bottom: 5%;
+    margin-bottom: 5%;
+}
+.detail a{
+    color: #fff;
+    font-size: 1.3rem;
+}
 .user-header .set{
-    width: 10%;
+    width: 13%;
     float: right;
 }
 .avatar{
+    border: 1px solid #fff;
     width: 20%;
-    border-radius: 50%; 
+    border-radius: 50%;
+    margin: 13% 1% -12% 5%;
+}
+.mint-navbar{
+    border-bottom: 1px solid #ccc;
+    color: #ccc;
+    z-index: 2;
+}
+.mint-navbar .mint-tab-item.is-selected{
+    border-bottom: 2px solid #000;
+    color: #000;
+    margin-bottom: -1px;
 }
 </style>

@@ -1,5 +1,5 @@
 /* CSS Reset */
-html,body{font-family: "Microsoft Yahei";  background-color: #fff; height: 100%; font-size: 62.5%;}
+html,body{font-family: "Microsoft Yahei";  background-color: #f4f5f7; height: 100%; font-size: 62.5%;}
 body, dl, dd, h1, h2, h3, h4, h5, h6, p, form{margin:0;}
 ol,ul{margin:0; padding:0;list-style-type:none;}
 input, select,button {vertical-align:middle; outline:none; font-family: "Microsoft Yahei";vertical-align: middle;}
