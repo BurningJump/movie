@@ -109,6 +109,7 @@ a{
 .user-header{
     background-color: green;
     padding-bottom: 5%;
+    min-height: 115px;
 }
 .detail{
     width: 55%;

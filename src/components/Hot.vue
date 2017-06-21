@@ -204,6 +204,9 @@ li{
     color: #000;
     margin-bottom: -1px;
 }
+.mint-tab-container{
+    margin-bottom: 15%;
+}
 .mint-tab-container-item img{
     float: left;
     margin: 0 5%;
