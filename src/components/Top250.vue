@@ -1,35 +1,34 @@
 <template>
 	<div>
 		<mt-header title="豆瓣TOP250" fixed>
-		  	<router-link to="/" slot="left">
+		  	<router-link to="/Find" slot="left">
 		    	<mt-button icon="back"></mt-button>
 		  	</router-link>
 		</mt-header>
-
 		<mt-navbar v-model="selected">
-		  	<mt-tab-item id="1">1-50</mt-tab-item>
-		  	<mt-tab-item id="2">51-100</mt-tab-item>
-		  	<mt-tab-item id="3">101-150</mt-tab-item>
-		  	<mt-tab-item id="4">151-200</mt-tab-item>
-		  	<mt-tab-item id="5">201-250</mt-tab-item>
+		  	<mt-tab-item id="1" @click.stop='getMovie(5,0)'>1-50</mt-tab-item>
+		  	<mt-tab-item id="2" @click.stop='getMovie(5,5)'>51-100</mt-tab-item>
+		  	<mt-tab-item id="3" @click.stop='getMovie(5,10)'>101-150</mt-tab-item>
+		  	<mt-tab-item id="4" @click.stop='getMovie(5,15)'>151-200</mt-tab-item>
+		  	<mt-tab-item id="5" @click.stop='getMovie(5,20)'>201-250</mt-tab-item>
 		</mt-navbar>
 
 		<!-- tab-container -->
 		<mt-tab-container v-model="selected">
 		  	<mt-tab-container-item id="1">
-		  	  	<mt-cell v-for="n in movie" :title="n.title" />
+		  	  	<mt-cell v-for="n in movie[0]" :title="n.title" />
 		  	</mt-tab-container-item>
 		  	<mt-tab-container-item id="2">
-		  	  	<mt-cell v-for="n in 20" :title="'测试 ' + n" />
+		  	  	<mt-cell v-for="n in movie[1]" :title="n.title" />
 		  	</mt-tab-container-item>
 		  	<mt-tab-container-item id="3">
-		  	  	<mt-cell v-for="n in 20" :title="'选项 ' + n" />
+		  	  	<mt-cell v-for="n in movie[2]" :title="n.title" />
 		  	</mt-tab-container-item>
 		  	<mt-tab-container-item id="4">
-		  	  	<mt-cell v-for="n in 20" :title="'选项 ' + n" />
+		  	  	<mt-cell v-for="n in movie[3]" :title="n.title" />
 		  	</mt-tab-container-item>
 		  	<mt-tab-container-item id="5">
-		  	  	<mt-cell v-for="n in 20" :title="'选项 ' + n" />
+		  	  	<mt-cell v-for="n in movie[4]" :title="n.title" />
 		  	</mt-tab-container-item>
 		</mt-tab-container>
 
@@ -45,18 +44,26 @@ export default {
         return {
             value:'',
             selected: '1',
-            movie:[],
+            movie:{},
+
         }
     },
+    watch:{
+    	selected: function(){
+    		let _this = this;
+    		_this.getMovie(5,(parseInt(_this.selected)-1)*5)
+    	}
+    },
     mounted(){
-        this.init();
+        this.getMovie(5,0);
     },
     methods:{
-        init(){
+        getMovie(count,start){
             let _this = this;
-            axios.get('movie/top250',qs.stringify({start: 0, count: 50}))
+            axios.get('/api/movie/top250?count='+count+'&start='+start)
             .then(function(res){
-               	_this.movie = res.data.subjects
+            	let index = parseInt(_this.selected)-1
+               	_this.movie[index] = res.data.subjects;
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')

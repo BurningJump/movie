@@ -196,12 +196,12 @@ li{
 }
 .mint-navbar{
     border-bottom: 1px solid #ccc;
-    color: #ccc;
+    color: #919191;
     z-index: 2;
 }
 .mint-navbar .mint-tab-item.is-selected{
     border-bottom: 2px solid #000;
-    color: #000;
+    color: #444444;
     margin-bottom: -1px;
 }
 .mint-tab-container{
@@ -242,15 +242,15 @@ li{
     background: url(../assets/img/ic_rating_s@2x.png) no-repeat;
 }
 .count{
-    color: orange;
+    color: #f6ac17;
 }
 .buy{
     border-radius: 3px;
     width: 17%;
     height: 24px;
-    color: red;
+    color: #fe638b;
     background-color: #fff;
-    border: 1px solid red;
+    border: 1px solid #fe638b;
     float: right;
     margin: -25% 5%;
 }

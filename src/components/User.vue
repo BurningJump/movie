@@ -47,6 +47,7 @@
 <script>
 import Tabbar from './Tabbar';
 import axios from "axios"
+import qs from "qs"
 import mint from 'mint-ui';
 export default {
     name: 'hello',
@@ -68,7 +69,7 @@ export default {
 
         init(){
             let _this = this;
-            axios.get('user/64249287')
+            axios.get('/api/user/64249287')
             .then(function(res){
                 _this.user = res.data;
             })
@@ -78,7 +79,7 @@ export default {
         },
         wish(){
            let _this = this;
-           axios.get('movie/subject/64249287')
+           axios.get('/api/movie/subject/64249287')
            .then(function(res){
                _this.user = res.data;
            })
