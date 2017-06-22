@@ -92,14 +92,14 @@ export default {
         init(){
             let _this = this
             // 正在热映
-            axios.get('movie/in_theaters')
+            axios.get('/api/movie/in_theaters')
             .then(function(res){
                 _this.hotMovies = res.data.subjects;
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
-            axios.get('movie/coming_soon')
+            axios.get('/api/movie/coming_soon')
             .then(function(res){
                 _this.comingMovies = res.data.subjects;
             })

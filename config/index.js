@@ -28,13 +28,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      //   '/v2': {
-      //   target: 'https://api.douban.com',
-      //   changeOrigin:true,
-      //   pathRewrite: {
-      //     '^/v2': '/v2'
-      //   }
-      // }
+      //设置代理，解决跨域问题
+        '/api': {
+        target: 'https://api.douban.com/v2',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
@@ -42,4 +43,5 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
+  }
 }

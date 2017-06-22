@@ -28,7 +28,9 @@ export default {
     name: 'hello',
     data () {
         return {
-            msg: ''
+            msg: '',
+            value: '',
+            result: {}
         }
     }
 }
