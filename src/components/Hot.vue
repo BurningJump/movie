@@ -20,7 +20,7 @@
                 <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
                     <ul>
                         <li v-for="movie in hotMovies">
-                            <router-link to="movie.alt">
+                            <router-link :to="movie.alt">
                                 <div>
                                     <img :src="movie.images.small">
                                     <div class="Movies-list-detail">
@@ -205,7 +205,7 @@ li{
     margin-bottom: -1px;
 }
 .mint-tab-container{
-    margin-bottom: 15%;
+    margin-bottom: 49px;
 }
 .mint-tab-container-item img{
     float: left;
