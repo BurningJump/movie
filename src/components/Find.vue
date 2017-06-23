@@ -13,11 +13,11 @@
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
                 <div class="ranking-list">
-                    <h2>精选榜单</h2>
+                    <h5>精选榜单</h5>
                     <ul class="list-box">
                         <li class="list" id="top250">
                             <router-link to="/Top250">
-                                <h2>豆瓣Top250</h2>
+                                <h5>豆瓣Top250</h5>
                                 <p>8分以上好电影</p>
                                 <img class="img0" :src="top250[0].images.small">
                                 <img class="img1" :src="top250[1].images.small">
@@ -26,7 +26,7 @@
                         </li>
                         <li class="list" id="weekly">
                             <router-link to="/Weekly">
-                                <h2>本周口碑榜</h2>
+                                <h5>本周口碑榜</h5>
                                 <p>{{us_box.date}}</p>
                                 <img src="" alt="">
                                 <img src="" alt="">
@@ -35,7 +35,7 @@
                         </li>
                         <li class="list" id="new-movies">
                             <router-link to="/NewMovies">
-                                <h2>新片榜</h2>
+                                <h5>新片榜</h5>
                                 <p>{{us_box.date}}</p>
                                 <img src="" alt="">
                                 <img src="" alt="">
@@ -44,7 +44,7 @@
                         </li>
                         <li class="list" id="usbox">
                             <router-link to="/USbox">
-                                <h2>票房榜</h2>
+                                <h5>票房榜</h5>
                                 <p>票房最高排名</p>
                                 <img class="img0" :src="us_box.subjects[0].subject.images.small">
                                 <img class="img1" :src="us_box.subjects[1].subject.images.small">
@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="pick">
-                    <h2>选电影</h2>
+                    <h5>选电影</h5>
                     <li>
                         <router-link to="/">经典</router-link>
                         <router-link to="/">豆瓣高分</router-link>
@@ -104,7 +104,7 @@
                     <p>今日更新<span>更多<img src="" alt=""></span></p>
                 </div>
                 <div class="pick">
-                    <h2>选电视剧</h2>
+                    <h5>选电视剧</h5>
                     <li>
                         <router-link to="/">美剧</router-link>
                         <router-link to="/">英剧</router-link>
@@ -197,18 +197,12 @@ export default {
     margin: 5% 0 5% 0%;
 }
 ::-webkit-scrollbar{width:0px}
-h2{
-    position: absolute;
-    line-height: 1.8;
-    margin-bottom: 0.5rem;
-    font-size: 1.4rem;
-    margin-left: 4%;
-}
 .list-box{
     overflow: scroll;
     position: relative;
     width: 210%;
     margin-top: 5%;
+    text-align: center;
 }
 .list{
     position: relative;
@@ -241,10 +235,15 @@ h2{
     top: 75px;
     left: 105px;
 }
-.list h2{
-    text-align: center;
-    font-size: 2rem;
+.list h5{
+    font-size: 1.6rem;
     padding: 2rem 0;
+    color: white;
+    font-weight: normal;
+    position: absolute;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+    margin-left: 4%;
 }
 .list p{
 
@@ -273,7 +272,7 @@ h2{
     padding-top: 10%;
     margin-bottom: 15%;
 }
-.pick h2{
+.pick h5{
     margin: -7% 0% 0% 4%;
 }
 .pick li{
