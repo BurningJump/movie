@@ -17,7 +17,13 @@
 		  	  	<mt-cell v-for="n in movie" :title="n.title" />
 		  	</mt-tab-container-item>
 		  	<mt-tab-container-item id="2">
-		  	  	<mt-cell v-for="n in movie.subject" :title="n.title" />
+                <div class="rank" v-for="(n,key) in movie">
+                    <h2>{{key+1}}</h2>
+                    <li>
+                        {{n.subject.title}}
+                    </li>
+                </div>
+		  	  	
 		  	</mt-tab-container-item>
 		</mt-tab-container>
 
@@ -57,6 +63,19 @@ export default {
 </script>
 
 <style scoped>
+.rank{
+    height: 20%;
+    border: 1px solid;
+    position: relative;
+    margin: 20% auto;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+h2{
+    width: 40%;
+    border-bottom: 1px solid #ccc;
+}
 .mint-header{
 	background-color: #ccc;
 	color: #000;

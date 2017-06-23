@@ -19,15 +19,15 @@
                             <router-link to="/Top250">
                                 <h2>豆瓣Top250</h2>
                                 <p>8分以上好电影</p>
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
+                                <img class="img0" :src="top250[0].images.small">
+                                <img class="img1" :src="top250[1].images.small">
+                                <img class="img2" :src="top250[2].images.small">
                             </router-link>
                         </li>
                         <li class="list" id="weekly">
                             <router-link to="/Weekly">
                                 <h2>本周口碑榜</h2>
-                                <p>6月13日 - 6月20日</p>
+                                <p>{{us_box.date}}</p>
                                 <img src="" alt="">
                                 <img src="" alt="">
                                 <img src="" alt="">
@@ -36,7 +36,7 @@
                         <li class="list" id="new-movies">
                             <router-link to="/NewMovies">
                                 <h2>新片榜</h2>
-                                <p>6月13日 - 6月20日</p>
+                                <p>{{us_box.date}}</p>
                                 <img src="" alt="">
                                 <img src="" alt="">
                                 <img src="" alt="">
@@ -46,9 +46,9 @@
                             <router-link to="/USbox">
                                 <h2>票房榜</h2>
                                 <p>票房最高排名</p>
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
+                                <img class="img0" :src="us_box.subjects[0].subject.images.small">
+                                <img class="img1" :src="us_box.subjects[1].subject.images.small">
+                                <img class="img2" :src="us_box.subjects[2].subject.images.small">
                             </router-link>
                         </li>
                     </ul>
@@ -133,17 +133,42 @@ export default {
             value:'',
             selected: '1',
             result:[],
+            top250:[],
+            us_box:[],
         }
     },
     mounted(){
-        this.init();
+        this.usbox();
+        this.top();
     },
     methods:{
-        init(){
-            let _this = this;
-            axios.get('user/64249287')
-            .then(function(res){
+        // init(){
+        //     let _this = this;
+        //     axios.get('user/64249287')
+        //     .then(function(res){
                
+        //     })
+        //     .catch(function(){
+        //         mint.Toast('网络请求超时！')
+        //     });
+        // },
+        top(count,start){
+            let _this = this;
+            axios.get('/api/movie/top250?count=3&start=0')
+            .then(function(res){
+                _this.top250 = res.data.subjects;
+                console.log(_this.top250)
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
+        },
+        usbox(){
+            let _this = this;
+            axios.get('/api/movie/us_box')
+            .then(function(res){
+                    _this.us_box = res.data;
+                
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
@@ -186,6 +211,7 @@ h2{
     margin-top: 5%;
 }
 .list{
+    position: relative;
     width: 150px;
     height: 150px;
     float: left;
@@ -196,6 +222,24 @@ h2{
     display: block;
     width: 100%;
     height: 100%;
+}
+.img0{
+    position: absolute;
+    width: 60px;
+    top: 50px;
+    left: 45px;
+}
+.img1{
+    position: absolute;
+    width: 40px;
+    top: 75px;
+    left: 5px;
+}
+.img2{
+    position: absolute;
+    width: 40px;
+    top: 75px;
+    left: 105px;
 }
 .list h2{
     text-align: center;
