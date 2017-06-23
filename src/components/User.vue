@@ -70,8 +70,8 @@ export default {
 
         init(){
             let _this = this;
-            // axios.get('/api/user/64249287')
-            axios.get('https://m.douban.com/rexxar/api/v2/user/64249287/itemlist?ck=dLKf&for_mobile=1')
+            axios.get('/api/user/64249287')
+            // axios.get('https://m.douban.com/rexxar/api/v2/user/64249287/itemlist?ck=dLKf&for_mobile=1')
             .then(function(res){
                 _this.user = res.data;
             })

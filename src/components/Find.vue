@@ -157,7 +157,6 @@ export default {
             axios.get('/api/movie/top250?count=3&start=0')
             .then(function(res){
                 _this.top250 = res.data.subjects;
-                console.log(_this.top250)
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
@@ -270,7 +269,7 @@ export default {
     height: auto;
     background-color: #fff;
     padding-top: 10%;
-    margin-bottom: 15%;
+    margin-bottom: 49px;
 }
 .pick h5{
     margin: -7% 0% 0% 4%;
