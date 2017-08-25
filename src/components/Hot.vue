@@ -2,12 +2,12 @@
     <div class="box">
         <div class="header">
             <span @click='selectCity'>{{city}}<img src="../assets/img/grayDown@2x.png" alt=""></span>
-            <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><input type="text" name="search" placeholder="电影/电视剧/影人"></div>
+            <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><router-link to="/Search">电影/电视剧/影人</router-link></div>
         </div>
-        <mt-swipe :auto="2000">
-            <mt-swipe-item id="swipe1"><img src="" alt=""><h1>red</h1></mt-swipe-item>
-            <mt-swipe-item id="swipe2"><img src="" alt=""><h1>blue</h1></mt-swipe-item>
-            <mt-swipe-item id="swipe3"><img src="" alt=""><h1>green</h1></mt-swipe-item>
+        <mt-swipe :auto="200000">
+            <mt-swipe-item id="swipe1"></mt-swipe-item>
+            <mt-swipe-item id="swipe2"></mt-swipe-item>
+            <mt-swipe-item id="swipe3"></mt-swipe-item>
         </mt-swipe>
         
         <mt-navbar v-model="selected">
@@ -25,7 +25,8 @@
                                     <img :src="movie.images.small">
                                     <div class="Movies-list-detail">
                                         <h1>{{movie.title}}</h1>
-                                        <p><span class="rating-star"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
                                         <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
                                         <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
                                         <p class="count"><span>{{movie.collect_count}}人看过</span></p>
@@ -46,7 +47,8 @@
                                     <img :src="movie.images.small">
                                     <div class="Movies-list-detail">
                                         <p>{{movie.title}}</p>
-                                        <p><span class="rating-star"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                        <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
                                         <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
                                         <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
                                         <p class="count"><span>{{movie.collect_count}}人看过</span></p>
@@ -73,17 +75,29 @@ export default {
     name: 'hello',
     data () {
         return {
+            start: 0,
+            count: 15,
             city: '深圳',
-            value:'',
+            value: '',
             selected: '1',
-            hotMovies:[],
-            comingMovies:[],
-            allLoaded: false
+            hotMovies: [],
+            comingMovies: [],
+            allLoaded: false,
+            bgpy: 0
         }
     },
     mounted(){
         this.init();
         // this.wish();
+    },
+    computed: {
+        /*bgpy: function(){
+            for(var i = 0, len = this.hotMovies.length; i < len; i++ ){
+                this.bgpy = Number(Math.ceil(this.hotMovies[i].rating.average)*11);
+                return this.bgpy;
+                console.log(this.bgpy)
+            }  
+        }*/
     },
     methods: {
         selectCity(){
@@ -92,14 +106,14 @@ export default {
         init(){
             let _this = this
             // 正在热映
-            axios.get('/api/movie/in_theaters')
+            axios.get('/api/movie/in_theaters'+'?start='+_this.start+'&count='+_this.count+'&city='+_this.city)
             .then(function(res){
                 _this.hotMovies = res.data.subjects;
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
-            axios.get('/api/movie/coming_soon')
+            axios.get('/api/movie/coming_soon'+'?start='+_this.start+'&count='+_this.count)
             .then(function(res){
                 _this.comingMovies = res.data.subjects;
             })
@@ -107,25 +121,29 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
-        // wish(){
-        //    let _this = this;
-        //    var len = _this.comingMovies.length;
-        //    for(var i = 0; i < len; i++){
-        //         axios.get('movie/subject/'+_this.comingMovies[i].id)
-        //         .then(function(res){
-        //             _this.comingMovies[i].wish_count = res.data.rating.numRaters;
-        //         })
-        //         .catch(function(){
-        //             mint.Toast('网络请求超时！')
-        //         }); 
-        //    }
-        // },
         loadTop() {
             // 加载更多数据
+            this.init();
             this.$refs.loadmore.onTopLoaded();
         },
         loadBottom() {
             // 加载更多数据
+            let _this = this
+            // 正在热映
+            axios.get('/api/movie/in_theaters'+'?start='+_this.start+15+'&count='+_this.count+15+'&city='+_this.city)
+            .then(function(res){
+                _this.hotMovies = res.data.subjects;
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
+            axios.get('/api/movie/coming_soon'+'?start='+_this.start+15+'&count='+_this.count+15)
+            .then(function(res){
+                _this.comingMovies = res.data.subjects;
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
             this.allLoaded = true;// 若数据已全部获取完毕
             this.$refs.loadmore.onBottomLoaded();
         }
@@ -183,13 +201,25 @@ export default {
     margin-top: 13%;
 }
 #swipe1{
-    background-color: red;
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    background-size: 100% 100%;
+    background-image: url('../assets/img/1.jpg');
 }
 #swipe2{
-    background-color: blue;
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-image: url('../assets/img/2.jpg');
 }
 #swipe3{
-    background-color: green;
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-image: url('../assets/img/3.jpg');
 }
 li{
     border-bottom: 1px solid #ccc;
@@ -212,7 +242,6 @@ li{
     margin: 0 5%;
 }
 .Movies-list-detail{
-    width: 38%;
     margin: 6% 30%;
 }
 .Movies-list-detail h1{
@@ -239,7 +268,7 @@ li{
     height: 11px;
     background-size: cover;
     background-position-x: 0;
-    background: url(../assets/img/ic_rating_s@2x.png) no-repeat;
+    background-image: url('../assets/img/ic_rating_s@2x.png');
 }
 .count{
     color: #f6ac17;
