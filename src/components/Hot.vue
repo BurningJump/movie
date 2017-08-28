@@ -86,24 +86,14 @@ export default {
             bgpy: 0
         }
     },
-    mounted(){
+    mounted() {
         this.init();
-        // this.wish();
-    },
-    computed: {
-        /*bgpy: function(){
-            for(var i = 0, len = this.hotMovies.length; i < len; i++ ){
-                this.bgpy = Number(Math.ceil(this.hotMovies[i].rating.average)*11);
-                return this.bgpy;
-                console.log(this.bgpy)
-            }  
-        }*/
     },
     methods: {
-        selectCity(){
-            this.$router.push('/City')
-        },
-        init(){
+        //selectCity() {
+        //    this.$router.push('/City')
+        //},
+        init() {
             let _this = this
             // 正在热映
             axios.get('/api/movie/in_theaters'+'?start='+_this.start+'&count='+_this.count+'&city='+_this.city)
@@ -121,7 +111,7 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
-        loadTop() {
+        /*loadTop() {
             // 加载更多数据
             this.init();
             this.$refs.loadmore.onTopLoaded();
@@ -129,24 +119,26 @@ export default {
         loadBottom() {
             // 加载更多数据
             let _this = this
+            _this.start = _this.start + 15;
+            _this.count = _this.count + 15;
             // 正在热映
-            axios.get('/api/movie/in_theaters'+'?start='+_this.start+15+'&count='+_this.count+15+'&city='+_this.city)
+            axios.get('/api/movie/in_theaters'+'?start='+_this.start+'&count='+_this.count+'&city='+_this.city)
             .then(function(res){
                 _this.hotMovies = res.data.subjects;
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
-            axios.get('/api/movie/coming_soon'+'?start='+_this.start+15+'&count='+_this.count+15)
+            axios.get('/api/movie/coming_soon'+'?start='+_this.start+'&count='+_this.count)
             .then(function(res){
                 _this.comingMovies = res.data.subjects;
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
-            this.allLoaded = true;// 若数据已全部获取完毕
+            this.allLoaded = false;// 若数据已全部获取完毕
             this.$refs.loadmore.onBottomLoaded();
-        }
+        }*/
     },
     components: {
         Tabbar
