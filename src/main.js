@@ -5,6 +5,7 @@ import axios from 'axios'
 import mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import qs from 'qs'
+//import BMap from 'BMap'
 
 Vue.use(mint)
 

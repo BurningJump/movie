@@ -90,9 +90,9 @@ export default {
         this.init();
     },
     methods: {
-        //selectCity() {
-        //    this.$router.push('/City')
-        //},
+        selectCity() {
+            this.$router.push('/City')
+        },
         init() {
             let _this = this
             // 正在热映
