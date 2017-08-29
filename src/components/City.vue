@@ -17,23 +17,23 @@
             <mt-tab-container-item id="1">
                 <div class="cityList">
                     <p class="CurrentCity">当前城市</p>
-                    <span>{{currentCity}}</span>
+                    <router-link :to="{ name: 'Hot', params: { city: currentCity }}">{{currentCity}}</router-link>
                     <p class="PopularCity">热门城市</p>
-                    <span>北京</span>
-                    <span>上海</span>
-                    <span>广州</span>
-                    <span>深圳</span>
-                    <span>成都</span>
-                    <span>武汉</span>
-                    <span>杭州</span>
-                    <span>重庆</span>
-                    <span>郑州</span>
-                    <span>南京</span>
-                    <span>西安</span>
-                    <span>苏州</span>
-                    <span>天津</span>
-                    <span>长沙</span>
-                    <span>福州</span>
+                    <router-link :to="{ name: 'Hot', params: { city: '北京' }}">北京</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '上海' }}">上海</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '广州' }}">广州</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '深圳' }}">深圳</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '成都' }}">成都</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '武汉' }}">武汉</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '杭州' }}">杭州</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '重庆' }}">重庆</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '郑州' }}">郑州</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '南京' }}">南京</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '西安' }}">西安</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '苏州' }}">苏州</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '天津' }}">天津</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '长沙' }}">长沙</router-link>
+                    <router-link :to="{ name: 'Hot', params: { city: '福州' }}">福州</router-link>
                 </div>
                 <mt-index-list>
                     <mt-index-section index="A">
@@ -128,13 +128,20 @@ export default {
 
             function myFun(result){
                 var cityName = result.name;
-                _this.currentCity = cityName;
-                console.log("当前定位城市:"+cityName);
+                _this.currentCity = cityName.slice(0,-1);
+                console.log(_this.currentCity);
             }
             var myCity = new BMap.LocalCity();
             myCity.get(myFun);
     },
     methods: {
+        selectCity() {
+            let _this = this;
+            var city = document.getElementsByTagName('span');
+            city.onclick = function() {
+                _this.$router.push('/Hot');
+            }
+        }
         
     }
 }
@@ -146,6 +153,13 @@ export default {
     color: #000;
     border-bottom: 1px solid #ccc;
     margin-bottom: 8%;
+}
+.mint-searchbar {
+    background-color: #fff;
+}
+.mint-searchbar-core {
+    background-color: #d9d9d9;
+    text-align: center;
 }
 .mint-navbar {
     position: fixed;
@@ -171,7 +185,7 @@ export default {
 .cityList p {
     padding-left: 4%;
 }
-.cityList span {
+.cityList a {
     width: 18%;
     text-align: center;
     background-color: #fff;
@@ -182,7 +196,7 @@ export default {
 }
 .mint-indexlist-nav {
     background-color: transparent;
-    border-left: none;
+    border-left: none !important;
     color: #2196f3;
 }
 .mint-indexlist-navitem {

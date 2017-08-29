@@ -17,7 +17,7 @@
 
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                <mt-loadmore :top-method="loadTop" ref="loadmore">
                     <ul>
                         <li v-for="movie in hotMovies">
                             <router-link :to="movie.alt">
@@ -39,7 +39,7 @@
                 </mt-loadmore>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
-                <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                <mt-loadmore :top-method="loadTop" ref="loadmore">
                     <ul>
                         <li v-for="movie in comingMovies">
                             <router-link :to="movie.alt">
@@ -76,13 +76,13 @@ export default {
     data () {
         return {
             start: 0,
-            count: 15,
-            city: '深圳',
-            value: '',
+            count: 40,
+            city: this.$route.params.city || '北京',
+            //value: '',
             selected: '1',
             hotMovies: [],
             comingMovies: [],
-            allLoaded: false,
+            allLoaded: true,
             bgpy: 0
         }
     },
@@ -111,34 +111,12 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
-        /*loadTop() {
-            // 加载更多数据
+        loadTop() {
+            // 下拉刷新
             this.init();
-            this.$refs.loadmore.onTopLoaded();
+            this.$refs.loadmore.onTopLoaded()
         },
-        loadBottom() {
-            // 加载更多数据
-            let _this = this
-            _this.start = _this.start + 15;
-            _this.count = _this.count + 15;
-            // 正在热映
-            axios.get('/api/movie/in_theaters'+'?start='+_this.start+'&count='+_this.count+'&city='+_this.city)
-            .then(function(res){
-                _this.hotMovies = res.data.subjects;
-            })
-            .catch(function(){
-                mint.Toast('网络请求超时！')
-            });
-            axios.get('/api/movie/coming_soon'+'?start='+_this.start+'&count='+_this.count)
-            .then(function(res){
-                _this.comingMovies = res.data.subjects;
-            })
-            .catch(function(){
-                mint.Toast('网络请求超时！')
-            });
-            this.allLoaded = false;// 若数据已全部获取完毕
-            this.$refs.loadmore.onBottomLoaded();
-        }*/
+        
     },
     components: {
         Tabbar

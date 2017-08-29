@@ -13,9 +13,24 @@
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
                 <div class="ranking-list">
-                    <h5>精选榜单</h5>
-                    <ul class="list-box">
-                        <li class="list" id="top250">
+                    <span>今日推荐</span><router-link to=""  class="a-list1">全部10</router-link>
+                    <ul class="list-box1">
+                        <li class="list1" id="list1"></li>
+                        <li class="list1" id="list2"></li>
+                        <li class="list1" id="list3"></li>
+                        <li class="list1" id="list4"></li>
+                        <li class="list1" id="list5"></li>
+                        <li class="list1" id="list6"></li>
+                        <li class="list1" id="list7"></li>
+                        <li class="list1" id="list8"></li>
+                        <li class="list1" id="list9"></li>
+                        <li class="list1" id="list10"></li>
+                    </ul>
+                </div>
+                <div class="ranking-list">
+                    <span>精选榜单</span>
+                    <ul class="list-box2">
+                        <li class="list2" id="top250">
                             <router-link to="/Top250">
                                 <h5>豆瓣Top250</h5>
                                 <p>8分以上好电影</p>
@@ -24,25 +39,25 @@
                                 <img class="img2" :src="top250[2].images.small">
                             </router-link>
                         </li>
-                        <li class="list" id="weekly">
+                        <li class="list2" id="weekly">
                             <router-link to="/Weekly">
                                 <h5>本周口碑榜</h5>
                                 <p>{{us_box.date}}</p>
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
+                                <img class="img0" :src="top250[0].images.small" alt="">
+                                <img class="img1" :src="top250[1].images.small" alt="">
+                                <img class="img2" :src="top250[2].images.small" alt="">
                             </router-link>
                         </li>
-                        <li class="list" id="new-movies">
+                        <li class="list2" id="new-movies">
                             <router-link to="/NewMovies">
                                 <h5>新片榜</h5>
                                 <p>{{us_box.date}}</p>
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
+                                <img class="img0" :src="top250[0].images.small" alt="">
+                                <img class="img1" :src="top250[1].images.small" alt="">
+                                <img class="img2" :src="top250[2].images.small" alt="">
                             </router-link>
                         </li>
-                        <li class="list" id="usbox">
+                        <li class="list2" id="usbox">
                             <router-link to="/USbox">
                                 <h5>票房榜</h5>
                                 <p>票房最高排名</p>
@@ -134,12 +149,14 @@ export default {
             selected: '1',
             result:[],
             top250:[],
+            weekly:[],
             us_box:[],
         }
     },
     mounted(){
         this.usbox();
         this.top();
+        //this.weekly();
     },
     methods:{
         // init(){
@@ -162,11 +179,22 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
+        /*weekly(count,start){
+            let _this = this;
+            axios.get('/api/movie/weekly')
+            .then(function(res){
+                _this.weekly = res.data.subjects;
+            })
+            .catch(function(){
+                mint.Toast('网络请求超时！')
+            });
+        },*/
         usbox(){
             let _this = this;
             axios.get('/api/movie/us_box')
             .then(function(res){
-                    _this.us_box = res.data;
+                _this.us_box = res.data;
+                console.log(_this.us_box)
                 
             })
             .catch(function(){
@@ -188,22 +216,45 @@ export default {
     height: auto;
 }
 .ranking-list{
-    color: #fff;
+    color: #000;
     background-color: #fff;
     width: auto;
     height: auto;
     overflow: scroll;
     margin: 5% 0 5% 0%;
 }
+.ranking-list span {
+    position: fixed;
+    left: 4%;
+}
+.a-list1 {
+    position: fixed;
+    right: 6%;
+}
 ::-webkit-scrollbar{width:0px}
-.list-box{
+.list-box1{
+    overflow: scroll;
+    position: relative;
+    width: 410%;
+    margin-top: 5%;
+    text-align: center;
+}
+.list-box2{
     overflow: scroll;
     position: relative;
     width: 210%;
     margin-top: 5%;
     text-align: center;
 }
-.list{
+.list1{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 2% 0% 2% 1%;
+    border-radius: 5px;
+}
+.list2{
     position: relative;
     width: 150px;
     height: 150px;
@@ -258,6 +309,36 @@ export default {
 }
 #usbox{
     background: linear-gradient(to top, rgba(173,106,106,0.1), rgba(173,106,106,1));
+}
+#list1 {
+    background: linear-gradient(to top, rgba(100,240,200,0.1), rgba(100,240,200,1));
+}
+#list2 {
+    background: linear-gradient(to top, rgba(120,220,180,0.1), rgba(120,220,180,1));
+}
+#list3 {
+    background: linear-gradient(to top, rgba(140,200,160,0.1), rgba(140,200,160,1));
+}
+#list4 {
+    background: linear-gradient(to top, rgba(160,180,140,0.1), rgba(160,180,140,1));
+}
+#list5 {
+    background: linear-gradient(to top, rgba(180,160,120,0.1), rgba(180,160,120,1));
+}
+#list6 {
+    background: linear-gradient(to top, rgba(200,160,100,0.1), rgba(200,160,100,1));
+}
+#list7 {
+    background: linear-gradient(to top, rgba(220,140,80,0.1), rgba(220,140,80,1));
+}
+#list8 {
+    background: linear-gradient(to top, rgba(240,120,60,0.1), rgba(240,120,60,1));
+}
+#list9 {
+    background: linear-gradient(to top, rgba(240,100,40,0.1), rgba(240,100,40,1));
+}
+#list10 {
+    background: linear-gradient(to top, rgba(240,40,20,0.1), rgba(240,40,20,1));
 }
 .box{
     background-color: #fff;
