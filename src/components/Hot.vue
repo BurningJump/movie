@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="header">
-            <span @click='selectCity'>{{city}}<img src="../assets/img/grayDown@2x.png" alt=""></span>
+            <router-link to="City">{{city}}<img src="../assets/img/grayDown@2x.png" alt=""></router-link>
             <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><router-link to="/Search">电影/电视剧/影人</router-link></div>
         </div>
         <mt-swipe :auto="200000">
@@ -88,10 +88,21 @@ export default {
     },
     mounted() {
         this.init();
+        this.selectCity();
     },
     methods: {
         selectCity() {
-            this.$router.push('/City')
+            let _this = this;
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            var point = new BMap.Point(116.331398,39.897445);
+
+            function myFun(result){
+                var cityName = result.name;
+                _this.currentCity = cityName.slice(0,-1);
+            }
+            var myCity = new BMap.LocalCity();
+            myCity.get(myFun);
         },
         init() {
             let _this = this

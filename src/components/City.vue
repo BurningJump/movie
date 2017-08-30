@@ -121,6 +121,22 @@ export default {
         }
     },
     mounted() {
+        /*let _this = this;
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(116.331398,39.897445);
+
+        function myFun(result){
+            var cityName = result.name;
+            _this.currentCity = cityName.slice(0,-1);
+            console.log(_this.currentCity);
+        }
+        var myCity = new BMap.LocalCity();
+        myCity.get(myFun);*/
+        this.selectCity();
+    },
+    methods: {
+        selectCity() {
             let _this = this;
             // 百度地图API功能
             var map = new BMap.Map("allmap");
@@ -129,18 +145,9 @@ export default {
             function myFun(result){
                 var cityName = result.name;
                 _this.currentCity = cityName.slice(0,-1);
-                console.log(_this.currentCity);
             }
             var myCity = new BMap.LocalCity();
             myCity.get(myFun);
-    },
-    methods: {
-        selectCity() {
-            let _this = this;
-            var city = document.getElementsByTagName('span');
-            city.onclick = function() {
-                _this.$router.push('/Hot');
-            }
         }
         
     }

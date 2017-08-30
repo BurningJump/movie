@@ -92,25 +92,25 @@
                 <div class="pick">
                     <h5>选电影</h5>
                     <li>
-                        <router-link to="/">经典</router-link>
-                        <router-link to="/">豆瓣高分</router-link>
-                        <router-link to="/">冷门佳片</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '经典' }}">经典</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '豆瓣高分' }}">豆瓣高分</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '冷门佳片' }}">冷门佳片</router-link>
                     </li>
                     <li>
-                        <router-link to="/">剧情</router-link>
-                        <router-link to="/">爱情</router-link>
-                        <router-link to="/">喜剧</router-link>
-                        <router-link to="/">科幻</router-link>
-                        <router-link to="/">动作</router-link>
-                        <router-link to="/">悬疑</router-link>
-                        <router-link to="/">治愈</router-link>
-                        <router-link to="/">青春</router-link>
-                        <router-link to="/">文艺</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '剧情' }}">剧情</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '爱情' }}">爱情</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '喜剧' }}">喜剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '科幻' }}">科幻</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '动作' }}">动作</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '悬疑' }}">悬疑</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '治愈' }}">治愈</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '青春' }}">青春</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '文艺' }}">文艺</router-link>
                     </li>
                     <li>
-                        <router-link to="/">日本</router-link>
-                        <router-link to="/">韩国</router-link>
-                    </li> 
+                        <router-link :to="{ name: 'Search', params: { tag: '日本' }}">日本</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '韩国' }}">韩国</router-link>
+                    </li> ''
                 </div>
             </mt-tab-container-item>
 
@@ -194,7 +194,6 @@ export default {
             axios.get('/api/movie/us_box')
             .then(function(res){
                 _this.us_box = res.data;
-                console.log(_this.us_box)
                 
             })
             .catch(function(){
@@ -216,6 +215,7 @@ export default {
     height: auto;
 }
 .ranking-list{
+    position: relative;
     color: #000;
     background-color: #fff;
     width: auto;
@@ -224,11 +224,11 @@ export default {
     margin: 5% 0 5% 0%;
 }
 .ranking-list span {
-    position: fixed;
+    position: absolute;
     left: 4%;
 }
 .a-list1 {
-    position: fixed;
+    position: absolute;
     right: 6%;
 }
 ::-webkit-scrollbar{width:0px}
