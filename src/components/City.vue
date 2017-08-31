@@ -11,7 +11,7 @@
             <mt-tab-item id='2'>海外</mt-tab-item>
         </mt-navbar>
     	<mt-search v-model="value" placeholder="输入城市名查询">
-    	    <mt-cell v-for="item in result" :title="item.title" :value="item.value"></mt-cell>
+    	    <mt-cell v-for="item in cities" :title="item" :value="item.value"></mt-cell>
     	</mt-search>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
@@ -103,6 +103,83 @@
                 </mt-index-list>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
+                <mt-index-list>
+                    <mt-index-section index="A">
+                        <mt-cell title="Australia"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="B">
+                        <mt-cell title="Brazil"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="C">
+                        <mt-cell title="Canada"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="D">
+                        <mt-cell title="Denmark"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="E">
+                        <mt-cell title="Egypt"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="F">
+                        <mt-cell title="France"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="G">
+                        <mt-cell title="Germany"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="H">
+                        <mt-cell title="Honduras"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="I">
+                        <mt-cell title="India"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="J">
+                        <mt-cell title="Japan"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="K">
+                        <mt-cell title="Kenya"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="L">
+                        <mt-cell title="Laos"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="M">
+                        <mt-cell title="Malaysia"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="N">
+                        <mt-cell title="Norway"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="O">
+                        <mt-cell title="Oman"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="P">
+                        <mt-cell title="Poland"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="Q">
+                        <mt-cell title="Qatar"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="R">
+                        <mt-cell title="Russia"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="S">
+                        <mt-cell title="Spain"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="T">
+                        <mt-cell title="Thailand"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="U">
+                        <mt-cell title="United States"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="V">
+                        <mt-cell title="Vietnam"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="W">
+                        <mt-cell title="Western Sahara"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="Y">
+                        <mt-cell title="Yemen"></mt-cell>
+                    </mt-index-section>
+                    <mt-index-section index="Z">
+                        <mt-cell title="Zambia"></mt-cell>
+                    </mt-index-section>
+                </mt-index-list>
             </mt-tab-container-item>
         </mt-tab-container>
     </div>
@@ -117,6 +194,23 @@ export default {
             selected: '1',
             msg: '',
             value: '',
+            cities:[
+                '北京',
+                '上海',
+                '广州',
+                '深圳',
+                '成都',
+                '武汉',
+                '杭州',
+                '重庆',
+                '郑州',
+                '南京',
+                '西安',
+                '苏州',
+                '天津',
+                '长沙',
+                '福州',
+            ],
             result: {}
         }
     },
@@ -159,7 +253,7 @@ export default {
     background-color: #fff;
     color: #000;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 8%;
+    margin-top: 0;
 }
 .mint-searchbar {
     background-color: #fff;

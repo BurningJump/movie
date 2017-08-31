@@ -13,82 +13,65 @@
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
                 <div class="ranking-list">
-                    <span>今日推荐</span><router-link to=""  class="a-list1">全部10</router-link>
-                    <ul class="list-box1">
-                        <li class="list1" id="list1"></li>
-                        <li class="list1" id="list2"></li>
-                        <li class="list1" id="list3"></li>
-                        <li class="list1" id="list4"></li>
-                        <li class="list1" id="list5"></li>
-                        <li class="list1" id="list6"></li>
-                        <li class="list1" id="list7"></li>
-                        <li class="list1" id="list8"></li>
-                        <li class="list1" id="list9"></li>
-                        <li class="list1" id="list10"></li>
-                    </ul>
+                    <p><span>今日推荐</span><router-link to="" class="a-list1"><span>全部10</span></router-link></p>
+                    <div>
+                        <ul class="list-box1">
+                            <li class="list1" id="list1"></li>
+                            <li class="list1" id="list2"></li>
+                            <li class="list1" id="list3"></li>
+                            <li class="list1" id="list4"></li>
+                            <li class="list1" id="list5"></li>
+                            <li class="list1" id="list6"></li>
+                            <li class="list1" id="list7"></li>
+                            <li class="list1" id="list8"></li>
+                            <li class="list1" id="list9"></li>
+                            <li class="list1" id="list10"></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="ranking-list">
-                    <span>精选榜单</span>
-                    <ul class="list-box2">
-                        <li class="list2" id="top250">
-                            <router-link to="/Top250">
-                                <h5>豆瓣Top250</h5>
-                                <p>8分以上好电影</p>
-                                <img class="img0" :src="top250[0].images.small">
-                                <img class="img1" :src="top250[1].images.small">
-                                <img class="img2" :src="top250[2].images.small">
-                            </router-link>
-                        </li>
-                        <li class="list2" id="weekly">
-                            <router-link to="/Weekly">
-                                <h5>本周口碑榜</h5>
-                                <p>{{us_box.date}}</p>
-                                <img class="img0" :src="top250[0].images.small" alt="">
-                                <img class="img1" :src="top250[1].images.small" alt="">
-                                <img class="img2" :src="top250[2].images.small" alt="">
-                            </router-link>
-                        </li>
-                        <li class="list2" id="new-movies">
-                            <router-link to="/NewMovies">
-                                <h5>新片榜</h5>
-                                <p>{{us_box.date}}</p>
-                                <img class="img0" :src="top250[0].images.small" alt="">
-                                <img class="img1" :src="top250[1].images.small" alt="">
-                                <img class="img2" :src="top250[2].images.small" alt="">
-                            </router-link>
-                        </li>
-                        <li class="list2" id="usbox">
-                            <router-link to="/USbox">
-                                <h5>票房榜</h5>
-                                <p>票房最高排名</p>
-                                <img class="img0" :src="us_box.subjects[0].subject.images.small">
-                                <img class="img1" :src="us_box.subjects[1].subject.images.small">
-                                <img class="img2" :src="us_box.subjects[2].subject.images.small">
-                            </router-link>
-                        </li>
-                    </ul>
+                    <p>精选榜单</p>
+                    <div>
+                        <ul class="list-box2">
+                            <li class="list2" id="top250">
+                                <router-link to="/Top250">
+                                    <h5>豆瓣Top250</h5>
+                                    <p>8分以上好电影</p>
+                                    <img class="img0" :src="top250[0].images.small">
+                                    <img class="img1" :src="top250[1].images.small">
+                                    <img class="img2" :src="top250[2].images.small">
+                                </router-link>
+                            </li>
+                            <li class="list2" id="weekly">
+                                <router-link to="/Weekly">
+                                    <h5>本周口碑榜</h5>
+                                    <p>{{us_box.date}}</p>
+                                    <img class="img0" :src="top250[0].images.small" alt="">
+                                    <img class="img1" :src="top250[1].images.small" alt="">
+                                    <img class="img2" :src="top250[2].images.small" alt="">
+                                </router-link>
+                            </li>
+                            <li class="list2" id="new-movies">
+                                <router-link to="/NewMovies">
+                                    <h5>新片榜</h5>
+                                    <p>{{us_box.date}}</p>
+                                    <img class="img0" :src="top250[0].images.small" alt="">
+                                    <img class="img1" :src="top250[1].images.small" alt="">
+                                    <img class="img2" :src="top250[2].images.small" alt="">
+                                </router-link>
+                            </li>
+                            <li class="list2" id="usbox">
+                                <router-link to="/USbox">
+                                    <h5>票房榜</h5>
+                                    <p>票房最高排名</p>
+                                    <img class="img0" :src="us_box.subjects[0].subject.images.small">
+                                    <img class="img1" :src="us_box.subjects[1].subject.images.small">
+                                    <img class="img2" :src="us_box.subjects[2].subject.images.small">
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="box rushi">
-                    
-                </div>
-
-                <div class="box interview">
-                    
-                </div>
-
-                <div class="box collect">
-                    
-                </div>
-
-                <div class="interested">
-                    
-                </div>
-
-                <div class="review">
-                    
-                </div>
-
                 <div class="pick">
                     <h5>选电影</h5>
                     <li>
@@ -121,14 +104,14 @@
                 <div class="pick">
                     <h5>选电视剧</h5>
                     <li>
-                        <router-link to="/">美剧</router-link>
-                        <router-link to="/">英剧</router-link>
-                        <router-link to="/">韩剧</router-link>
-                        <router-link to="/">港剧</router-link>
-                        <router-link to="/">日剧</router-link>
-                        <router-link to="/">动画</router-link>
-                        <router-link to="/">综艺</router-link>
-                        <router-link to="/">国产剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '美剧' }}">美剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '英剧' }}">英剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '韩剧' }}">韩剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '港剧' }}">港剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '日剧' }}">日剧</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '动画' }}">动画</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '综艺' }}">综艺</router-link>
+                        <router-link :to="{ name: 'Search', params: { tag: '国产剧' }}">国产剧</router-link>
                     </li>
                 </div>
             </mt-tab-container-item>
@@ -156,19 +139,8 @@ export default {
     mounted(){
         this.usbox();
         this.top();
-        //this.weekly();
     },
     methods:{
-        // init(){
-        //     let _this = this;
-        //     axios.get('user/64249287')
-        //     .then(function(res){
-               
-        //     })
-        //     .catch(function(){
-        //         mint.Toast('网络请求超时！')
-        //     });
-        // },
         top(count,start){
             let _this = this;
             axios.get('/api/movie/top250?count=3&start=0')
@@ -220,29 +192,32 @@ export default {
     background-color: #fff;
     width: auto;
     height: auto;
-    overflow: scroll;
     margin: 5% 0 5% 0%;
 }
-.ranking-list span {
+.ranking-list div{
+    overflow: scroll;
+}
+.ranking-list p {
     position: absolute;
+    width: 90%;
     left: 4%;
 }
 .a-list1 {
     position: absolute;
-    right: 6%;
+    right: 0;
 }
 ::-webkit-scrollbar{width:0px}
 .list-box1{
     overflow: scroll;
     position: relative;
-    width: 410%;
+    width: 1685px;
     margin-top: 5%;
     text-align: center;
 }
 .list-box2{
     overflow: scroll;
     position: relative;
-    width: 210%;
+    width: 666px;
     margin-top: 5%;
     text-align: center;
 }

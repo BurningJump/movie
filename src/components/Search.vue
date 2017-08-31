@@ -37,7 +37,10 @@ export default {
     	this.getResult();
     },
     watch: {
-    	tag: 'getResult'
+    	tag: 'getResult',
+        cancelText: function() {
+            this.router.go(-1)
+        }
     },
     methods:{
         getResult() {

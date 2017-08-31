@@ -1,10 +1,12 @@
 <template>
     <div class="box">
         <div class="header">
-            <router-link to="City">{{city}}<img src="../assets/img/grayDown@2x.png" alt=""></router-link>
-            <div class="search-box"><img src="../assets/img/bn_srh_1.png" alt=""><router-link to="/Search">电影/电视剧/影人</router-link></div>
+            <router-link to="City" class="city" ><span>{{city}}</span><img src="../assets/img/grayDown@2x.png" alt=""></router-link>
+            <router-link to="/Search" class="search-box">
+                <i class="mintui mintui-search"></i><span>电影/电视剧/影人</span>
+            </router-link>
         </div>
-        <mt-swipe :auto="200000">
+        <mt-swipe :auto="3000">
             <mt-swipe-item id="swipe1"></mt-swipe-item>
             <mt-swipe-item id="swipe2"></mt-swipe-item>
             <mt-swipe-item id="swipe3"></mt-swipe-item>
@@ -17,48 +19,44 @@
 
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <mt-loadmore :top-method="loadTop" ref="loadmore">
-                    <ul>
-                        <li v-for="movie in hotMovies">
-                            <router-link :to="movie.alt">
-                                <div>
-                                    <img :src="movie.images.small">
-                                    <div class="Movies-list-detail">
-                                        <h1>{{movie.title}}</h1>
-                                        <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
-                                        <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
-                                        <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
-                                        <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
-                                        <p class="count"><span>{{movie.collect_count}}人看过</span></p>
-                                    </div>
-                                    <button class="buy">购票</button>
+                <ul>
+                    <li v-for="movie in hotMovies">
+                        <router-link :to="movie.alt">
+                            <div>
+                                <img v-lazy.1="movie.images.small">
+                                <div class="Movies-list-detail">
+                                    <h1>{{movie.title}}</h1>
+                                    <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                    <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
+                                    <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                    <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
+                                    <p class="count"><span>{{movie.collect_count}}人看过</span></p>
                                 </div>
-                            </router-link>
-                        </li>
-                    </ul>
-                </mt-loadmore>
+                                <button class="buy">购票</button>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
-                <mt-loadmore :top-method="loadTop" ref="loadmore">
-                    <ul>
-                        <li v-for="movie in comingMovies">
-                            <router-link :to="movie.alt">
-                                <div>
-                                    <img :src="movie.images.small">
-                                    <div class="Movies-list-detail">
-                                        <p>{{movie.title}}</p>
-                                        <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
-                                        <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
-                                        <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
-                                        <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
-                                        <p class="count"><span>{{movie.collect_count}}人看过</span></p>
-                                    </div>
-                                    <button class="wish">想看</button>
+                <ul>
+                    <li v-for="movie in comingMovies">
+                        <router-link :to="movie.alt">
+                            <div>
+                                <img v-lazy.2="movie.images.small">
+                                <div class="Movies-list-detail">
+                                    <p>{{movie.title}}</p>
+                                    <p v-show="movie.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(movie.rating.stars)/5)+1)*11+'px'}"></span> <span class="rating-score">{{movie.rating.average}}</span></p>
+                                    <p v-show="movie.rating.average == 0" style="color:#ccc;">暂无评分</p>
+                                    <p class="director">导演：<span v-for='director in movie.directors'>{{director.name}}</span></p>
+                                    <p class="cast">主演：<span v-for='cast in movie.casts'>{{cast.name}} / </span></p>
+                                    <p class="count"><span>{{movie.collect_count}}人看过</span></p>
                                 </div>
-                            </router-link>
-                        </li>
-                    </ul>
-                </mt-loadmore>
+                                <button class="wish">想看</button>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
             </mt-tab-container-item>
         </mt-tab-container>
         
@@ -76,18 +74,25 @@ export default {
     data () {
         return {
             start: 0,
-            count: 40,
+            count: 200,
             city: this.$route.params.city || '北京',
             //value: '',
             selected: '1',
             hotMovies: [],
             comingMovies: [],
-            allLoaded: true,
+            //allLoaded: false,
             bgpy: 0
         }
     },
+    /*watch: {
+        selected: function() {
+            this.getMovie()
+            console.log('调用watch')
+        }
+    },*/
     mounted() {
-        this.init();
+        this.hot();
+        this.coming();
         this.selectCity();
     },
     methods: {
@@ -104,30 +109,57 @@ export default {
             var myCity = new BMap.LocalCity();
             myCity.get(myFun);
         },
-        init() {
+        hot() {
             let _this = this
             // 正在热映
             axios.get('/api/movie/in_theaters'+'?start='+_this.start+'&count='+_this.count+'&city='+_this.city)
             .then(function(res){
-                _this.hotMovies = res.data.subjects;
+                _this.hotMovies = _this.hotMovies.concat(res.data.subjects);
+                /*if(_this.start > res.data.total){
+                    this.allLoaded = true;// 若数据已全部获取完毕
+                }*/
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
+        },
+        coming() {
+            let _this = this
+            //即将上映
             axios.get('/api/movie/coming_soon'+'?start='+_this.start+'&count='+_this.count)
             .then(function(res){
-                _this.comingMovies = res.data.subjects;
+                _this.comingMovies = _this.comingMovies.concat(res.data.subjects);
+                /*if(_this.start > res.data.total){
+                    this.allLoaded = true;// 若数据已全部获取完毕
+                }*/
             })
             .catch(function(){
                 mint.Toast('网络请求超时！')
             });
         },
-        loadTop() {
+        /*loadTop() {
+            this.start = 0;
             // 下拉刷新
-            this.init();
+            if(this.selected == '1') {
+                this.hot()
+            }else{
+                this.coming();
+            }
             this.$refs.loadmore.onTopLoaded()
-        },
-        
+        },*/
+        /*loadBottom() {
+            // 加载更多数据
+            this.start += 20;
+            if(this.selected == '1') {
+                this.hot()
+            }else{
+                this.coming();
+            }
+            /*if(hotMovies.length >= 40){
+                this.allLoaded = true;// 若数据已全部获取完毕
+            }*/
+            //this.$refs.loadmore.onBottomLoaded();
+        //}
     },
     components: {
         Tabbar
@@ -144,13 +176,24 @@ export default {
     top: 0;
     width: 100%;
     z-index: 2;
+    font-size: 16px;
     background-color: #fff;
 }
-.header span{
+.city{
+    width: 15%;
+    margin-top: 8px;
+    display: inline-block;
+    padding-left: 10px;
+}
+.city img{
+    width: 30%;
+    vertical-align: middle;
+}
+/* .header span{
     float: left;
     margin: 2% 1px 2% 2%;
     vertical-align: middle;
-}
+} */
 .header span img{
     max-height: 25px;
     max-width: 25px;
@@ -159,8 +202,9 @@ export default {
 }
 .search-box{
     background-color: #ccc;
-    width: 78%;
-    margin: 2% 2% 2% 55px;
+    width: 76%;
+    vertical-align: middle;
+    display: inline-block;
     border-radius: 5px;
 }
 .search-box img{
@@ -179,7 +223,7 @@ export default {
     margin: 0 auto;
     height: 110px;
     width: 100%;
-    margin-top: 13%;
+    margin-top: 38px;
 }
 #swipe1{
     display: inline-block;
