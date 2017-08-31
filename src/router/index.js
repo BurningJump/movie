@@ -6,7 +6,8 @@ Vue.use(Router)
 export default new Router({
 	linkActiveClass: 'activeRouter',
   	routes: [
-  		{ path: '/City', name: 'City', component: r => require.ensure([], () => r(require('./../components/City')), 'City')},
+      { path: '/City', name: 'City', component: r => require.ensure([], () => r(require('./../components/City')), 'City')},
+  		{ path: '/Detail', name: 'Detail', component: r => require.ensure([], () => r(require('./../components/Detail')), 'Detail')},
   		{ path: '/Find', name: 'Find', component: r => require.ensure([], () => r(require('./../components/Find')), 'Find')},
   		{ path: '/Hot', name: 'Hot', component: r => require.ensure([], () => r(require('./../components/Hot')), 'Hot')},
   		{ path: '/Login', name: 'Login', component: r => require.ensure([], () => r(require('./../components/Login')), 'Login')},

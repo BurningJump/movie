@@ -21,7 +21,7 @@
             <mt-tab-container-item id="1">
                 <ul>
                     <li v-for="movie in hotMovies">
-                        <router-link :to="movie.alt">
+                        <router-link :to="{ name: 'Detail', params: { id: movie.id }}">
                             <div>
                                 <img v-lazy.1="movie.images.small">
                                 <div class="Movies-list-detail">
