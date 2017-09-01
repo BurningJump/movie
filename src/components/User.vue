@@ -57,21 +57,16 @@ export default {
             selected: '1',
             wish_count: 122,
             allLoaded: false,
-            comingMovies:[]
+            comingMovies: []
         }
     },
     mounted(){
         this.init();
     },
     methods:{
-        //user/64249287
-        // /v2/movie/subject/:id
-        // https://m.douban.com/rexxar/api/v2/user/64249287/itemlist?ck=dLKf&for_mobile=1
-
-        init(){
+        init() {
             let _this = this;
             axios.get('/api/user/64249287')
-            // axios.get('https://m.douban.com/rexxar/api/v2/user/64249287/itemlist?ck=dLKf&for_mobile=1')
             .then(function(res){
                 _this.user = res.data;
             })
@@ -79,7 +74,7 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
-        wish(){
+        wish() {
            let _this = this;
            axios.get('/api/movie/subject/64249287')
            .then(function(res){
@@ -90,11 +85,11 @@ export default {
            }); 
         },
         loadTop() {
-            // 加载更多数据
+            // 下拉刷新
             this.$refs.loadmore.onTopLoaded();
         },
         loadBottom() {
-            // 加载更多数据
+            // 上拉刷新
             this.allLoaded = true;// 若数据已全部获取完毕
             this.$refs.loadmore.onBottomLoaded();
         }

@@ -32,7 +32,7 @@
                 <div class="ranking-list">
                     <p>精选榜单</p>
                     <div>
-                        <ul class="list-box2">
+                        <ul class="list-box2" v-if="top250[0] && us_box.subjects[0]">
                             <li class="list2" id="top250">
                                 <router-link to="/Top250">
                                     <h5>豆瓣Top250</h5>
@@ -42,6 +42,7 @@
                                     <img class="img2" :src="top250[2].images.small">
                                 </router-link>
                             </li>
+
                             <li class="list2" id="weekly">
                                 <router-link to="/Weekly">
                                     <h5>本周口碑榜</h5>

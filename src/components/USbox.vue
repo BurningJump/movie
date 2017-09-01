@@ -1,22 +1,18 @@
 <template>
 	<div>
-		<mt-header title="票房榜" fixed>
+		<mt-header title="北美票房榜" fixed>
 		  	<router-link to="/" slot="left">
 		    	<mt-button icon="back"></mt-button>
 		  	</router-link>
 		</mt-header>
 
 		<mt-navbar v-model="selected">
-		  	<mt-tab-item id="1">全国</mt-tab-item>
-		  	<mt-tab-item id="2">北美</mt-tab-item>
+		  	<mt-tab-item id="1">北美</mt-tab-item>
 		</mt-navbar>
 
 		<!-- tab-container -->
 		<mt-tab-container v-model="selected">
 		  	<mt-tab-container-item id="1">
-		  	  	<mt-cell v-for="n in movie" :title="n.title" />
-		  	</mt-tab-container-item>
-		  	<mt-tab-container-item id="2">
                 <div class="rank" v-for="(n,key) in movie">
                     <h2>{{key+1}}</h2>
                     <li>
