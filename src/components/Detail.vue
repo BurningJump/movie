@@ -6,10 +6,10 @@
                 <mt-button icon="back"></mt-button>
             </router-link>
         </mt-header>
-        <div class="movie-poster">
+        <div class="movie-poster" v-if="detail.images.medium">
             <img :src="detail.images.medium" alt="">
         </div>
-        <div class="container">
+        <div class="container" v-if="detail.rating.average">
             <div class="movie">
                 <section class="movie-detail">
                     <h3>{{detail.title}}</h3>
@@ -69,70 +69,70 @@
         <div class="douban-dialog" v-show="show">
             <div class="hd">
                 <a class="btn-cancel" href="javascript:;" @click="show=false"><img src="../assets/img/close.png" alt=""></a>
-                <!-- <a class="btn-ok" href="javascript:;" data-status="wish">确定</a> -->
+                <a class="btn-ok" href="javascript:;" data-status="wish">确定</a>
                 <router-link to="" class="btn-ok">确定</router-link>
             </div>
             <mt-navbar v-model="selected">
-            	<mt-tab-item id='1'>想看</mt-tab-item>
-            	<mt-tab-item id='2'>看过</mt-tab-item>
-        	</mt-navbar>
-        	<mt-tab-container v-model="selected">
-            	<mt-tab-container-item id="1">
-            		<div class="bd">
-            			<div class="interest-bd">
-                    		<div class="tit"><span>为电影打标签</span><img src="../assets/img/up.png" alt="" style="width:20px;"></div>
-                    		<div class="con remark">
-                    	    	<a href="javascript:;" class="">二战</a>
-                    	    	<a href="javascript:;" class="">战争</a>
-                    	    	<a href="javascript:;" class="">历史</a>
-                    	    	<a href="javascript:;" class="">2017</a>
-                    	    	<a href="javascript:;" class="">美国</a>
-                    	    	<a href="javascript:;" class="">军事</a>
-                    	    	<a href="javascript:;" class="">剧情</a>
-                    	    	<a href="javascript:;" class="">英国</a>
-                    	    	<input id="input-tag" class="hide" size="5" type="text">
-                    	    	<a href="javascript:;" class="add-tag">+</a>
-                    		</div>
-                			<div class="tit"><span class="max-length"></span></div>
-                			<div class="con">
-                			    <textarea style="overflow:hidden; resize:none; " placeholder="写几句评价吧..."></textarea>
-                			</div>
-            			</div>
-        			</div>
-            	</mt-tab-container-item>
-            	<mt-tab-container-item id="2">
-            		<div class="bd">
-    					<div class="con star">
+                <mt-tab-item id='1'>想看</mt-tab-item>
+                <mt-tab-item id='2'>看过</mt-tab-item>
+            </mt-navbar>
+            <mt-tab-container v-model="selected">
+                <mt-tab-container-item id="1">
+                    <div class="bd">
+                        <div class="interest-bd">
+                            <div class="tit"><span>为电影打标签</span><img src="../assets/img/up.png" alt="" style="width:20px;"></div>
+                            <div class="con remark">
+                                <a href="javascript:;" class="">二战</a>
+                                <a href="javascript:;" class="">战争</a>
+                                <a href="javascript:;" class="">历史</a>
+                                <a href="javascript:;" class="">2017</a>
+                                <a href="javascript:;" class="">美国</a>
+                                <a href="javascript:;" class="">军事</a>
+                                <a href="javascript:;" class="">剧情</a>
+                                <a href="javascript:;" class="">英国</a>
+                                <input id="input-tag" class="hide" size="5" type="text">
+                                <a href="javascript:;" class="add-tag">+</a>
+                            </div>
+                            <div class="tit"><span class="max-length"></span></div>
+                            <div class="con">
+                                <textarea style="overflow:hidden; resize:none; " placeholder="写几句评价吧..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mt-tab-container-item>
+                <mt-tab-container-item id="2">
+                    <div class="bd">
+                                <div class="con star">
                             <p>点击星星评分</p>
                             <span id="rating-star" :style="{backgroundPositionY:bgpy+'px'}" @click="ratingStar" @mouseover="mouseOver"></span>
-    					</div>
-    					<div class="interest-bd">
-            				<div class="tit">
+                                </div>
+                                <div class="interest-bd">
+                            <div class="tit">
                                 <span>为电影打标签</span><img src="../assets/img/up.png" alt="" style="width:20px;">
                             </div>
-            				<div class="con remark">
-        				        <a href="javascript:;" class="">二战</a>
-        				        <a href="javascript:;" class="">战争</a>
-        				        <a href="javascript:;" class="">历史</a>
-        				        <a href="javascript:;" class="">2017</a>
-        				        <a href="javascript:;" class="">美国</a>
-        				        <a href="javascript:;" class="">军事</a>
-        				        <a href="javascript:;" class="">剧情</a>
-        				        <a href="javascript:;" class="">英国</a>
-            				    <input id="input-tag" class="hide" size="5" type="text">
-            				    <a href="javascript:;" class="add-tag">+</a>
-            				</div>
-        					<div class="tit"><span class="max-length"></span></div>
-        					<div class="con">
-        					    <textarea style="overflow:hidden; resize:none; " placeholder="写几句评价吧..."></textarea>
-        					</div>
-					    </div>
-					</div>
-            	</mt-tab-container-item>
-        	</mt-tab-container>
+                            <div class="con remark">
+                                <a href="javascript:;" class="">二战</a>
+                                <a href="javascript:;" class="">战争</a>
+                                <a href="javascript:;" class="">历史</a>
+                                <a href="javascript:;" class="">2017</a>
+                                <a href="javascript:;" class="">美国</a>
+                                <a href="javascript:;" class="">军事</a>
+                                <a href="javascript:;" class="">剧情</a>
+                                <a href="javascript:;" class="">英国</a>
+                                <input id="input-tag" class="hide" size="5" type="text">
+                                <a href="javascript:;" class="add-tag">+</a>
+                            </div>
+                            <div class="tit"><span class="max-length"></span></div>
+                            <div class="con">
+                                <textarea style="overflow:hidden; resize:none; " placeholder="写几句评价吧..."></textarea>
+                            </div>
+                                </div>
+                            </div>
+                </mt-tab-container-item>
+            </mt-tab-container>
             <mt-checklist title="同步到" v-model="value" :options="['豆瓣广播', '新浪微博']">
             </mt-checklist>
-        </div>
+        </div> -->
 	</div>
 </template>
 
