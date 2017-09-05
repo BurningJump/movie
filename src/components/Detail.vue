@@ -2,42 +2,42 @@
 	<div class="box">
         <div v-show="!show">
             <mt-header fixed title="电影">
-            <router-link to="/Hot" slot="left">
-                <mt-button icon="back"></mt-button>
-            </router-link>
-        </mt-header>
-        <div class="movie-poster" v-if="detail.images.medium">
+                <router-link to="/Hot" slot="left">
+                    <mt-button icon="back"></mt-button>
+                </router-link>
+            </mt-header>
+        <div class="movie-poster" v-if="detail.images">
             <img :src="detail.images.medium" alt="">
         </div>
-        <div class="container" v-if="detail.rating.average">
+        <div class="container" v-if="detail.rating">
             <div class="movie">
                 <section class="movie-detail">
-                    <h3>{{detail.title}}</h3>
-                    <p>{{detail.year}}/{{detail.countries}}</p>
-                    <p>{{detail.genres}}</p>
+                    <h1>{{detail.title}}</h1>
+                    <p>{{detail.year}}/{{detail.countries | countryGenre}}</p>
+                    <p>{{detail.genres | countryGenre}}</p>
                     <p>原名：{{detail.original_title}}</p>
                     <p>上映时间：{{detail.mainland_pubdate}}</p>
-                    <p>片长：{{detail.durations}}</p>
+                    <p>片长：{{detail.durations||90}}分钟</p>
                 </section>
-                <section class="movie-rating">
+                <div class="movie-rating">
                     <p>豆瓣评分</p>
                     <p style="color:#000; font-size: 16px; font-weight: bolder;">{{detail.rating.average}}</p>
-                    <p v-show="detail.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil(Number(detail.rating.stars)/5)+1)*11+'px'}"></span></p>
+                    <p v-show="detail.rating.average!=0"><span class="rating-star" :style="{backgroundPositionY:(Math.ceil( Number(detail.rating.stars)/5)+1)*11+'px'}"></span></p>
                     <p>{{detail.ratings_count}}</p>
-                </section>
+                </div>
                 <section class="movie-mark">
                     <div class="movie-mark-item">
                         <router-link to="" class=""><span @click="wish">想看</span></router-link>
-                        <router-link to="" class=""><span @click="seen">看过</span><span class="rating-star-blank"></span></router-link>
+                        <router-link to="" class=""><span @click="seen">看过</span><span class="rating-star-blank" :style="{backgroundPositionY:(yourRating+1)*11+'px'}"></span></router-link>
                     </div>
                 </section>
-                <div>
-                    <router-link to=""><span>选座购票</span><span>¥{{price}}起</span><img src="../assets/img/right.png"></router-link>
-                </div>
+                <section class="ticket">
+                    <p>选座购票<router-link to=""><span>¥ {{price}} 起</span><img src="../assets/img/right.png"></router-link></p>
+                </section>
                 <section class="subject-intro">
-                    <h2>敦刻尔克的剧情简介</h2>
+                    <h2>{{detail.title}}的剧情简介</h2>
                     <div class="bd" style="position: static;">
-                        <p data-clamp="3" data-content="故事改编自著名的二战军事事件“敦刻尔克大撤退”。二战初期，40万英法盟军被敌军围困于敦刻尔克的海滩之上，面对敌军步步逼近的绝境，形势万分危急。英国政府和海军发动大批船员，动员人民起来营救军队。<br>英国士兵汤米（菲昂·怀特海德 Fionn Whitehead 饰）在逃离海滩的过程中相继结识吉布森与亚历克斯，同时民用船主道森先生（马克·里朗斯 Mark Rylance 饰）与儿子彼得、17岁少年乔治也离开英国，去往敦刻尔克拯救士兵。三人陆续搭救了海军（基里安·墨菲 Cillian Murphy 饰）、飞行员柯林斯及汤米一行人，而战斗机飞行员法瑞尔（汤姆·哈迪 Tom Hardy 饰）则在被敌人双面夹击的艰难情形下顽强战斗。<br>影片的故事从陆、海、空三个角度讲述，在德国军队的包围下，每个人不得不为自己的命运背水一战，才有可能活着回家。">故事改编自著名的二战军事事件“敦刻尔克大撤退”。二战初期，40万英法盟军被敌军围困于敦刻尔克的海滩之上，面对敌军步步逼近的绝境，形势万分危急。英国...<a class="expand" href="javascript:;" style="float:right;">(展开)</a></p>
+                        <p id="summary" style="height:66px; overflow:hidden;">{{detail.summary | removeDouban}}</p><a id="expand" href="javascript:;" style="float:right;color: #42bd56;" @click="expand">展开</a>
                     </div>
                 </section>
                 <section class="" id="celebrities">
@@ -47,14 +47,14 @@
                     <div class="section-content">
                         <ul class="row items">
                             <li v-for="director in detail.directors" class="item item__celebrity">
-                                <a href="https://movie.douban.com/celebrity/1054524/">
+                                <a href="director.alt">
                                     <img class="item-poster" :src="director.avatars.small">
                                     <span class="item-title name">{{director.name}}</span>
                                     <span class="item-title role">导演</span>
                                 </a>
                             </li>
                             <li v-for="cast in detail.casts" class="item item__celebrity">
-                                <a href="https://movie.douban.com/celebrity/1054524/">
+                                <a href="cast.alt">
                                     <img class="item-poster" :src="cast.avatars.small">
                                     <span class="item-title name">{{cast.name}}</span>
                                     <span class="item-title role">演员</span>
@@ -68,9 +68,9 @@
         </div>
         <div class="douban-dialog" v-show="show">
             <div class="hd">
-                <a class="btn-cancel" href="javascript:;" @click="show=false"><img src="../assets/img/close.png" alt=""></a>
-                <a class="btn-ok" href="javascript:;" data-status="wish">确定</a>
-                <router-link to="" class="btn-ok">确定</router-link>
+                <a class="btn-cancel" href="javascript:;" @click="cancel"><img src="../assets/img/close.png" alt=""></a>
+                <a class="btn-ok" href="javascript:;" @click="confirm">确定</a>
+                <!-- <router-link to="" class="btn-ok">确定</router-link> -->
             </div>
             <mt-navbar v-model="selected">
                 <mt-tab-item id='1'>想看</mt-tab-item>
@@ -104,7 +104,7 @@
                     <div class="bd">
                                 <div class="con star">
                             <p>点击星星评分</p>
-                            <span id="rating-star" :style="{backgroundPositionY:bgpy+'px'}" @click="ratingStar" @mouseover="mouseOver"></span>
+                            <span id="rating-star" :style="{backgroundPositionY:bgpy+'px'}" @click="ratingStar"></span>
                                 </div>
                                 <div class="interest-bd">
                             <div class="tit">
@@ -132,7 +132,7 @@
             </mt-tab-container>
             <mt-checklist title="同步到" v-model="value" :options="['豆瓣广播', '新浪微博']">
             </mt-checklist>
-        </div> -->
+        </div>
 	</div>
 </template>
 
@@ -149,15 +149,28 @@ export default {
             show: false,
             price: 20,
             bgpy: 30,
+            yourRating: 0,
             value: [],
+            //ST: document.getElementById('expand').scrollTop || 0,
 		}
 	},
 	mounted() {
 		this.init();
-        //this.ratingStar();
-        
-        //this.$nextTick(()=>{ this.mouseOver() })
+        this.$nextTick(function () {
+            window.addEventListener('scroll', this.onScroll)
+        })
 	},
+    /*watch: {
+        ST() {
+            console.log(document.getElementsByTagName('h1').scrollTop)
+            let _this = this
+            if (document.getElementById('app').scrollTop()>229) {
+                document.getElementsByClassName('mint-header-title').innerHTML="_this.detail.title"
+            }else{
+                document.getElementsByClassName('mint-header-title').innerHTML="电影"
+            }
+        }
+    },*/
 	methods: {
 		init() {
             //电影条目信息
@@ -171,53 +184,44 @@ export default {
                 mint.Toast('网络请求超时！')
             });
         },
-        mouseMoveVelocity() {
-            var previousX;
-            var previousY;
-            var previousT;
-
-            window.addEventListener('mousemove', function(event) {
-                if (!(previousX === undefined ||
-                      previousY === undefined ||
-                      previousT === undefined)) {
-                    var deltaX = event.screenX - previousX;
-                    var deltaY = event.screenY - previousY;
-                    var deltaD = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-                
-                    var deltaT = event.timeStamp - previousT;
-                    console.log("鼠标速度:"+deltaD / deltaT * 1000);
-                }
-    
-                previousX = event.screenX;
-                previousY = event.screenY;
-                previousT = event.timeStamp;
-            });
-        },
         mouseOver() {
             let _this = this;
             var star = document.getElementById('rating-star');
             star.addEventListener('mousemove', function(event) {
                 _this.bgpy = 90 + 60*Math.floor(event.clientX/30)
             })
-            //this.bgpy = 90 + 60*Math.floor(event.clientX/30)
-            //this.ratingStar()
-            //console.log('1')
         },
         ratingStar() {
-            //var star = document.getElementById('rating-star');
-            /*if (event.clientX>0 && event.clientX<30) {
-                this.bgpy = 90;
-            }else if (event.clientX>30 && event.clientX<60) {
-                this.bgpy = 150;
-            }else if (event.clientX>60 && event.clientX<90) {
-                this.bgpy = 210;
-            }else if (event.clientX>90 && event.clientX<120) {
-                this.bgpy = 270;
-            }else if (event.clientX>120 && event.clientX<150) {
-                this.bgpy = 330;
-            }*/
-            this.bgpy = 90 + 60*Math.floor(event.clientX/30)
+            this.bgpy = 90 + 60*Math.floor(event.clientX/30);
+            this.yourRating = 2*Math.ceil(event.clientX/30);
         },
+        expand() {
+            if (document.getElementById('expand').innerHTML=="展开") {
+                document.getElementById('summary').style.height="auto";
+                document.getElementById('expand').innerHTML="收起";
+            }else{
+                document.getElementById('summary').style.height="66px";
+                document.getElementById('expand').innerHTML="展开";
+            }
+        },
+        cancel() {
+            this.show=false;
+            this.bgpy=30;
+            this.yourRating=0;
+        },
+        confirm() {
+            this.show = false;
+        },
+        onScroll() {
+            let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+            // 当页面滚动到229px以下时header显示电影名称
+            if (scrolled >= 229) {
+                document.getElementsByClassName('mint-header-title').innerHTML="this.detail.title"
+            } else {
+                document.getElementsByClassName('mint-header-title').innerHTML="电影"
+            }
+        }, 
+
         /*photo() {
             //剧照(需要权限)
             let _this = this
@@ -250,6 +254,15 @@ export default {
 	background-color: #000;
 	opacity: 0.8;
 }
+section {
+    margin-bottom: 30px;
+}
+h1 {
+    margin: 30px 0 5px;
+    font-size: 24px;
+    line-height: 32px;
+    word-break: break-all;
+}
 .movie-poster{
 	text-align: center;
 	vertical-align: middle;
@@ -263,7 +276,6 @@ export default {
 .movie-rating{
 	display: inline-block;
 	width: 80px;
-	height: 80px;
 	text-align: center;
 	color: #ccc;
 	background-color: #fff;
@@ -277,8 +289,25 @@ export default {
     background-position-x: 0;
     background-image: url('../assets/img/ic_rating_s@2x.png');
 }
-.movie-mark{
-	margin-top: 30px;
+.ticket{
+    position: relative;
+    vertical-align: middle;
+}
+.ticket p{
+    font-size: 18px;
+    font-weight: bold;
+}
+.ticket span{
+    color: rgb(249, 134, 134);
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    right: 22px;
+}
+.ticket img{
+    width: 22px;
+    position: absolute;
+    right: 0;
 }
 .movie-mark-item{
 	display: flex;
@@ -353,8 +382,62 @@ export default {
 .mint-tab-item-label{
     font-size: 26px;
 }
+section p {
+    font-size: 15px;
+    color: #494949;
+}
+section p, section h3 {
+    line-height: 22px;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+}
+h2 {
+    color: #aaa;
+    margin: 0 0 15px;
+    font-size: 15px;
+}
+.items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.item__celebrity {
+    font-size: 14px;
+    width: 75px;
+}
+.item {
+    margin-left: 0.48rem;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+.item-poster {
+    width: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+.item__celebrity .item-title {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: normal;
+    text-align: center;
+    color: #494949;
+    margin-top: 8px;
+}
+.item__celebrity .item-title.role {
+    color: #aaa;
+}
 .bd{
-	border-top: 1px solid #ccc;
 	background-color: #fff;
 }
 .tit {

@@ -1,0 +1,5 @@
+::-webkit-scrollbar{width: 0;}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color: #aaa;}
+input:-moz-placeholder, textarea:-moz-placeholder {color:#aaa;}
+input::-moz-placeholder, textarea::-moz-placeholder {color:#aaa;}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {color:#aaa;}

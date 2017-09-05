@@ -175,6 +175,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+    height: 40px;
     z-index: 2;
     font-size: 16px;
     background-color: #fff;
